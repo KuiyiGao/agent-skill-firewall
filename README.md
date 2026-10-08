@@ -5,7 +5,7 @@
     <a href="https://github.com/KuiyiGao/agent-skill-firewall/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/KuiyiGao/agent-skill-firewall/actions/workflows/ci.yml/badge.svg"></a>
     <img alt="Python 3.10 | 3.11 | 3.12" src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg">
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
-    <a href="#which-agent-are-you-running"><img alt="adapts OpenClaw, Hermes, Claude Code, Cursor" src="https://img.shields.io/badge/adapts-OpenClaw%20%C2%B7%20Hermes%20%C2%B7%20Claude%20Code%20%C2%B7%20Cursor-8A2BE2.svg"></a>
+    <a href="#which-agent-are-you-running"><img alt="adapts OpenClaw, Hermes, Claude Code, Cursor" src="https://img.shields.io/badge/adapts-OpenClaw%2C%20Hermes%2C%20Claude%20Code%2C%20Cursor-8A2BE2.svg"></a>
   </p>
 </div>
 
@@ -27,8 +27,8 @@ verdicts. Rules live in a TOML file you can `diff`.
 ```
    ┌──────────────┐   HTTP_PROXY    ┌──────────────┐   allow ─▶ internet
    │ your agent   │ ──────────────▶ │   firewall   │
-   │ openclaw ·   │   (port 8080)   │ proxy+canary │   deny  ─▶ 403 / hold
-   │ hermes · …   │ ◀── allow/deny ─│  + L0 + L2   │
+   │ openclaw,    │   (port 8080)   │ proxy+canary │   deny  ─▶ 403 / hold
+   │ hermes, …    │ ◀── allow/deny ─│  + L0 + L2   │
    └──────┬───────┘                 └──────┬───────┘
           │ reads SKILL.md                 │ events.jsonl
           │ from .openclaw/skills,         ▼
@@ -75,7 +75,7 @@ through the firewall. Run `firewall agents` to see this table on your machine.
   <td><code>firewall hook cursor</code></td>
 </tr>
 <tr>
-  <td>Codex · Gemini · OpenCode · <i>any</i></td><td>—</td>
+  <td>Codex, Gemini, OpenCode and others</td><td>Any</td>
   <td>Standard <code>HTTP_PROXY</code> works.</td>
   <td><code>firewall hook generic</code></td>
 </tr>
