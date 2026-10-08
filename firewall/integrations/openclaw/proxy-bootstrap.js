@@ -6,7 +6,8 @@
 // runtime is using.
 //
 // Usage:
-//   npm install -g undici            # one-time, so this script can resolve it
+//   npm install -g undici            # one-time
+//   export NODE_PATH="$(npm root -g)" # makes the global undici resolvable
 //   export FIREWALL_PROXY=http://127.0.0.1:8080
 //   NODE_OPTIONS="--require $(firewall integrations openclaw-bootstrap)" \
 //     openclaw skills search hello
@@ -46,7 +47,8 @@ if (!globalThis.__firewallBootstrapInstalled) {
     // child re-load succeeds. Only complain when the user asked.
     process.stderr.write(
       '[firewall] proxy-bootstrap: undici not resolvable in this process. ' +
-      'Run `npm install -g undici` once, or use `firewall start --mode docker`.\n'
+      'Run `npm install -g undici` once and export NODE_PATH="$(npm root -g)", ' +
+      'or use `firewall start --mode docker`.\n'
     );
   }
 }

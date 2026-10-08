@@ -167,7 +167,8 @@ def scan(
 def watch(
     skill_dir: Path = typer.Argument(..., exists=True, file_okay=False, dir_okay=True, resolve_path=True),
     answer: str = typer.Option("", "--answer", help="agent's final answer (for tie-breaker)"),
-    log_file: Path | None = typer.Option(None, "--log-file", help="proxy/canary log to ingest"),
+    log_file: Path | None = typer.Option(None, "--log-file", exists=True, dir_okay=False,
+                                         help="proxy/canary log to ingest"),
 ) -> None:
     """Score a single skill run from a stored log (offline replay of the live proxy)."""
     from firewall.skills.discover import load_skill
@@ -238,10 +239,8 @@ def start(
     Path(cfg.state.events_path).expanduser().parent.mkdir(parents=True, exist_ok=True)
     emitter = EventEmitter(cfg.state.events_path)
 
-    # Actually launch the egress proxy (8080) and canary (8088) as background
-    # threads in this process. Previously this command only emitted an info
-    # event and idled — agents pointed at HTTP_PROXY=127.0.0.1:8080 found
-    # nothing listening. Now `firewall start` does what it says.
+    # Run the egress proxy (8080) and canary (8088) as background threads
+    # in this process.
     import threading
     from firewall.runtime import egress_proxy as _ep
     from firewall.runtime import canary as _cn
@@ -308,7 +307,8 @@ def panel(
 def bench(
     skills_root: Path = typer.Argument(..., exists=True, file_okay=False, dir_okay=True,
                                        resolve_path=True, help="folder of SKILL.md dirs"),
-    log_dir: Path = typer.Option(None, "--log-dir", help="folder of per-skill NAME.log files for L2 replay"),
+    log_dir: Path = typer.Option(None, "--log-dir", exists=True, file_okay=False,
+                                 help="folder of per-skill NAME.log files for L2 replay"),
     out: Path = typer.Option(None, "--out", "-o", help="write CSV here (default: stdout)"),
 ) -> None:
     """Batch-scan a folder of skills and print one CSV row per skill.
@@ -473,13 +473,11 @@ def doctor() -> None:
         checks.append((label, free,
                        "free" if free else "already bound (firewall may already be running)"))
 
+    # The label must contain the exact substring "(optional)" or a missing
+    # tool counts as a required failure below.
     docker = shutil.which("docker") is not None
-    checks.append(("docker (optional, for --mode docker)", docker,
-                   "found" if docker else "not installed"))
-
-    tectonic = shutil.which("tectonic") is not None
-    checks.append(("tectonic (optional, for code.pdf rebuilds)", tectonic,
-                   "found" if tectonic else "not installed"))
+    checks.append(("docker (optional)", docker,
+                   "found" if docker else "not installed (needed only for --mode docker)"))
 
     required_failures = 0
     t = Table(title=f"firewall doctor — {len(checks)} checks", show_lines=False)

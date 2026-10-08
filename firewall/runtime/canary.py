@@ -1,7 +1,8 @@
 """Internal honeypot tripwire — a tiny HTTP server that records hits.
 
-Bound to ``127.0.0.1:8088`` by default. Any inbound request is logged
-as ``CANARY-HIT`` so the supervisor records it as a containment signal.
+Bound to ``127.0.0.1:8088`` by default. Any inbound request is written
+to ``events.jsonl`` as a ``canary`` event, which the supervisor records
+as a containment signal.
 The L2 verifier in detector mode subtracts this from the verdict (it is
 containment, not evidence — invariant 3).
 """

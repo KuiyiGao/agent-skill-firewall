@@ -6,7 +6,7 @@ L1 containment substrate ∪ L2 runtime Intent-Action-Result verifier.
 
 Quick start::
 
-    pip install agent-skill-firewall
+    pip install git+https://github.com/KuiyiGao/agent-skill-firewall
     firewall config init
     firewall start
     firewall panel

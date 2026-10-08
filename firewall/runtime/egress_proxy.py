@@ -38,7 +38,7 @@ class _LiveConfig:
     """Re-read config from disk if the TOML mtime changed since last read.
 
     Cheap enough to call once per request (stat + maybe parse). Means that
-    \`firewall config mode strict\` from another shell takes effect on the
+    ``firewall config mode strict`` from another shell takes effect on the
     next request without restarting the proxy.
     """
     __slots__ = ("_cfg", "_path", "_mtime")

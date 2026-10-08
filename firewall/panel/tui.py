@@ -14,7 +14,7 @@ Layout (Textual, gracefully reflows to 80×24)::
     |                             +-- Recent events (D) ---------------+
     |                             | tailing events.jsonl …             |
     +-----------------------------+------------------------------------+
-    | Footer: q quit · p pause · c clear · f filter                    |
+    | Footer: q quit · p pause · c clear                               |
     +------------------------------------------------------------------+
 
 Tails ``state.events_path`` (default ``~/.local/state/firewall/events.jsonl``).
@@ -29,6 +29,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from rich.text import Text
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Vertical
@@ -204,12 +205,13 @@ class FirewallPanel(App):
             self._ingest(ev)
 
     def _ingest(self, ev: dict) -> None:
-        kind = ev.get("kind")
+        kind = str(ev.get("kind") or "")
         if kind == "verdict":
             self._on_verdict(ev)
         elif kind == "usage":
             self._on_usage(ev)
-        elif kind in {"egress", "canary", "info"}:
+        elif kind.startswith("egress") or kind in {"canary", "info"}:
+            # the proxy writes egress.allow / egress.deny / egress.capture
             self._on_log(ev)
 
     def _on_verdict(self, ev: dict) -> None:
@@ -219,7 +221,9 @@ class FirewallPanel(App):
         skill = ev.get("skill") or "—"
         t = _short_ts(ev.get("ts"))
         tbl = self.query_one(DataTable)
-        tbl.add_row(t, skill, f"[{color}]{label}[/{color}]", reason)
+        # Skill names and reasons come from scanned skills; pass them as Text
+        # so any Rich markup in them (e.g. "[/x]") is shown literally.
+        tbl.add_row(t, Text(str(skill)), Text(label, style=color), Text(str(reason)))
         keep = (self.cfg.panel.keep_rows if self.cfg else 200)
         if tbl.row_count > keep:
             tbl.remove_row(tbl.ordered_rows[0].key)
@@ -249,7 +253,7 @@ class FirewallPanel(App):
         host = ev.get("host") or ""
         path = ev.get("path") or ""
         t = _short_ts(ev.get("ts"))
-        log.write_line(f"{t}  {ev.get('kind'):<7}  {host}  {path}")
+        log.write_line(f"{t}  {ev.get('kind'):<14}  {host}  {path}")
 
 
 def _short_ts(iso: str | None) -> str:

@@ -1,13 +1,11 @@
 """L0 static gate.
 
-Two complementary scanners:
+:mod:`firewall.gate.static_scanner` holds the built-in lightweight static
+checks (hidden instructions in comments, suspicious frontmatter keys, shell
+fetches, hostile host literals, and a file that matches both a configured
+secret source and a configured network sink).
 
-* :mod:`firewall.gate.static_scanner` — built-in lightweight static checks
-  (hidden frontmatter content, suspicious endpoints, bundled artifacts).
-* ``firewall.gate.cisco_scan`` (shell wrapper) — optional integration
-  with the external ``cisco-ai-skill-scanner`` pip package.
-
-Both emit :class:`Finding` records; the install policy
+It emits :class:`Finding` records; the install policy
 (``prescan``: only CRITICAL hard-blocks) is enforced by the L2 layer,
 not here. See ``firewall.runtime.firewall`` invariants (2) and (3).
 """

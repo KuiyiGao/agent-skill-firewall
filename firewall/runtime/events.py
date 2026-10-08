@@ -3,7 +3,7 @@
 This is what ``firewall start`` writes and ``firewall panel`` tails.
 Format::
 
-    {"ts": "<ISO-8601>", "kind": "<verdict|egress|canary|usage|info>",
+    {"ts": "<ISO-8601>", "kind": "<verdict|egress.allow|egress.deny|egress.capture|canary|usage|info>",
      "skill": "<name|null>", ...}
 
 Schema is open-ended on purpose: new event kinds can be added without

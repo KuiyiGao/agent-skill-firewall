@@ -1,7 +1,8 @@
 # your-skills/
 
-Drop your own SKILL.md folders here. The firewall discovers them
-automatically via `firewall skills`.
+Drop your own SKILL.md folders here. From the repository root,
+`firewall skills --dir examples/your-skills` lists them and
+`firewall bench examples/your-skills` scans them.
 
 ```
 your-skills/

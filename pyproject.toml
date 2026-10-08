@@ -11,7 +11,7 @@ requires-python = ">=3.10"
 license = { text = "MIT" }
 keywords = ["agent", "skills", "firewall", "security", "openclaw", "claude-code", "runtime"]
 authors = [
-  { name = "AgentSkillsHack contributors" },
+  { name = "agent-skill-firewall contributors" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -36,8 +36,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/KuiyiGao/OpenClaw-Skill-Hack"
-Issues = "https://github.com/KuiyiGao/OpenClaw-Skill-Hack/issues"
+Homepage = "https://github.com/KuiyiGao/agent-skill-firewall"
+Issues = "https://github.com/KuiyiGao/agent-skill-firewall/issues"
 
 [project.scripts]
 firewall = "firewall.cli:main"

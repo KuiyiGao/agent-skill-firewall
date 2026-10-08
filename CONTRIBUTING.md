@@ -6,8 +6,8 @@ are welcome as long as they keep it that way.
 ## Dev setup
 
 ```bash
-git clone https://github.com/KuiyiGao/OpenClaw-Skill-Hack.git
-cd OpenClaw-Skill-Hack
+git clone https://github.com/KuiyiGao/agent-skill-firewall.git
+cd agent-skill-firewall
 make install            # pip install -e ".[dev]"
 make test               # pytest tests/unit/
 ```
@@ -26,29 +26,29 @@ edits `config.toml`. Each one is pinned by a single named test in
 | 4 | Unknown is not guilty | `test_unknown_destination_alone_is_not_malicious` |
 | 5 | IAR 3-plane shape (no bodies) | `test_iar_egress_plane_has_no_body` |
 
-If a change makes any of these fail, the change is wrong, not the test.
+If a change makes any of these fail, fix the change and leave the test as it is.
 
 ## Policy lives in TOML, not code
 
 The runtime is policy-free. New default patterns belong in
 [`firewall/config.py::DEFAULT_CONFIG_TOML`](firewall/config.py); new
 regex / host / sink categories belong in `Config` dataclasses with a
-matching field in the TOML template. Hard-coding patterns in
-`firewall/runtime/firewall.py` is the wrong place — the user's audit
-trail must remain in their TOML.
+matching field in the TOML template. Do not hard-code patterns in
+`firewall/runtime/firewall.py`; the user's audit trail must stay in
+their TOML.
 
 ## Style
 
 * No marketing prose in docstrings.
 * No "Why this exists" preambles.
 * One short line per function docstring; remove if it just restates the name.
-* Comments only when the **why** is non-obvious. Section banners
+* Comments only when the why is not obvious. Section banners
   (`# --- foo ---`) get trimmed in review.
 
 ## Submitting
 
 1. Add a test for the invariant or behaviour you're changing.
-2. `make test` — all 21+ tests must pass on Python 3.10–3.12.
+2. Run `make test`. All 21+ tests must pass on Python 3.10 to 3.12.
 3. Open a PR; CI runs the same matrix.
 
 ## License

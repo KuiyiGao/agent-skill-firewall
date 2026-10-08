@@ -108,7 +108,14 @@ function render(recent) {
     const v = (ev.verdict || "").toLowerCase();
     const cls = v === "benign" ? "pass" : v === "malicious" ? "block" : "defer";
     const label = v === "benign" ? "PASS" : v === "malicious" ? "BLOCK" : "DEFER";
-    tr.innerHTML = `<td>${t}</td><td>${ev.skill||"—"}</td><td class="${cls}">${label}</td><td>${ev.reason||"-"}</td>`;
+    // Skill names and reasons come from scanned (possibly hostile) skills:
+    // set them as text, never as HTML.
+    for (const [text, c] of [[t, ""], [ev.skill || "—", ""], [label, cls], [ev.reason || "-", ""]]) {
+      const td = document.createElement("td");
+      td.textContent = text;
+      if (c) td.className = c;
+      tr.appendChild(td);
+    }
     tbody.appendChild(tr);
   }
   const log = document.getElementById("log"); log.innerHTML = "";
