@@ -16,7 +16,7 @@ rewrites), and the research sandbox could not open most vendor docs directly.
 1. **Start from the need, not the vendor.** Run a query, or read `INDEX.md` (generated
    table of all entries) and `references/selection-guide.md` (needs → picks, combos):
    ```bash
-   cd .claude/skills/hacknc-api-catalog
+   cd builder/skills/hacknc-api-catalog        # from hacknc-2026/; .claude/skills/ links here
    python scripts/catalog.py select --tag voice --max-risk medium
    python scripts/catalog.py select --track mlh-solana
    python scripts/catalog.py select --category geo --no-card --offline

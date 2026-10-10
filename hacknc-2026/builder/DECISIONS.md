@@ -7,8 +7,21 @@ One entry per decision: date, decision, why, alternatives considered.
   existing repository until the team creates the submission repo.
 - **Why:** the cloud session can only push to this repository; the container is ephemeral,
   so work must be committed and pushed to survive.
-- **Later:** move it out with `git subtree split --prefix=hacknc-2026` so the submission
-  repo contains only code written during the event.
+- **Later:** split out only the release tier (see the tiers decision below) so the
+  submission repo contains only the shipped project.
+
+## 2026-10-10: Two tiers, release/ and builder/
+- **Decision:** `hacknc-2026/release/` holds only what ships (becomes the submission repo
+  via `git subtree split --prefix=hacknc-2026/release`); `hacknc-2026/builder/` holds skills,
+  progress log, decisions, builder dependencies, `.env` and packaged skills.
+- **How agents still find things:** the root `CLAUDE.md` imports `builder/CLAUDE.md`
+  (`@builder/CLAUDE.md`, loaded at launch); skills live in `builder/skills/` and are
+  symlinked from `.claude/skills/`, which Claude Code follows (docs: skills, "Symlinked
+  folders"). A skill placed directly in `builder/.claude/skills/` would only load after
+  Claude touches a file in `builder/`, so the symlink is used instead.
+- **Rule:** release code never depends on `builder/`; configuration reaches it only through
+  environment variables.
+- **Deferred:** a unified agent entry document (README-style router for any agent).
 
 ## 2026-10-10: One Markdown file per API, with YAML frontmatter
 - **Decision:** catalog entries are `catalog/<id>.md` with fixed frontmatter fields and fixed

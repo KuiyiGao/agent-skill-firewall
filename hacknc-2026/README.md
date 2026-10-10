@@ -1,37 +1,48 @@
 # HackNC 2026 workspace
 
-Working folder for our HackNC 2026 project (UNC Chapel Hill, Oct 10-11, 2026).
-Everything in here was created during the event.
+Our HackNC 2026 project (UNC Chapel Hill, Oct 10-11, 2026), split into two tiers so the
+shipped project stays clean.
 
-| Path | What it is |
-|---|---|
-| `CLAUDE.md` | Instructions for AI builders working in this folder (read first) |
-| `PROGRESS.md` | Status board and dated work log; update it after every work block |
-| `DECISIONS.md` | Short records of decisions and why |
-| `.claude/skills/hacknc-api-catalog/` | Skill: every API / free sandbox from the HackNC pages, in one unified format, plus selection guidance |
+| Tier | Path | Contents | Ships? |
+|---|---|---|---|
+| Release | [`release/`](release/) | Only what the Devpost submission repo contains: app code, its README, its `.env.example`, demo assets | yes |
+| Builder | [`builder/`](builder/) | What people and AI agents use to build it: skills (API catalog), progress log, decisions, dependencies, `.env` with real keys, packaged skills | no |
 
-## Using the API catalog
-
-```bash
-cd .claude/skills/hacknc-api-catalog
-pip install pyyaml
-python scripts/catalog.py validate                      # schema check
-python scripts/catalog.py index                         # rebuild INDEX.md + catalog.json
-python scripts/catalog.py select --tag voice --max-risk medium
-python scripts/catalog.py select --track mlh-solana
-python scripts/catalog.py show elevenlabs
-python scripts/catalog.py env elevenlabs alpaca-paper-trading > ../../../.env.example
+```
+hacknc-2026/
+├── README.md            this map
+├── CLAUDE.md            loads builder/CLAUDE.md for AI sessions started here
+├── .claude/skills/      symlinks to builder/skills/* so Claude Code finds them at startup
+├── release/             → becomes the submission repo
+└── builder/
+    ├── README.md        builder guide (start here as a human builder)
+    ├── CLAUDE.md        rules for AI builders
+    ├── PROGRESS.md      status board + dated log
+    ├── DECISIONS.md     decisions and why
+    ├── skills/          hacknc-api-catalog (and future skills)
+    ├── requirements.txt builder-tool dependencies
+    ├── .env.example     every API variable from the catalog; copy to .env (git-ignored)
+    └── dist/            packaged .skill files (git-ignored)
 ```
 
-Claude Code picks up the skill automatically when a session is started in this folder
-(`.claude/skills/`).
+## Rules that keep the tiers separate
 
-## Moving this folder into its own repo
+- `release/` never imports, reads or links anything in `builder/`; it must work after being
+  lifted out on its own. Configuration reaches it only through environment variables.
+- Secrets live in `builder/.env` only. `release/.env.example` lists the variable names the
+  shipped app needs, with no values.
+- Builder-only material (catalog, logs, scratch notes, rehearsal fixtures that are not part
+  of the demo) stays out of `release/`.
 
-The Devpost submission needs a GitHub link to the project's code. When the project repo
-exists, lift this folder out with its history:
+## Shipping the release tier
 
 ```bash
-git subtree split --prefix=hacknc-2026 -b hacknc-2026-only
-# then push that branch to the new repo's main
+git subtree split --prefix=hacknc-2026/release -b hacknc-release
+git push <submission-repo-url> hacknc-release:main
 ```
+
+## Unified agent entry
+
+Planned: one entry document (README-style) that any agent reads first and that routes it
+to the right tier, skill and task. Not implemented yet; until then AI sessions get their
+rules from `CLAUDE.md` → `builder/CLAUDE.md`.

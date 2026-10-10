@@ -218,6 +218,7 @@ def cmd_select(args) -> int:
 def cmd_env(args) -> int:
     """Print a .env.example block for the chosen entries (default: all non-dead)."""
     wanted = set(args.ids or [])
+    seen: set[str] = set()
     for e in all_entries():
         if wanted and e["id"] not in wanted:
             continue
@@ -226,8 +227,13 @@ def cmd_env(args) -> int:
         if not e.get("env_vars"):
             continue
         print(f"# {e['id']} ({e['auth']})")
+        shared = [v for v in e["env_vars"] if v in seen]
+        if shared:
+            print(f"# also uses {', '.join(shared)} (above)")
         for var in e["env_vars"]:
-            print(f"{var}=")
+            if var not in seen:
+                print(f"{var}=")
+                seen.add(var)
         print()
     return 0
 

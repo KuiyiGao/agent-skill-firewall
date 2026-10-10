@@ -1,0 +1,2 @@
+# Builder tools only (the release app keeps its own dependency file).
+pyyaml>=6.0          # builder/skills/hacknc-api-catalog/scripts/catalog.py
