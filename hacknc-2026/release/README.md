@@ -1,8 +1,7 @@
 # (Project name)
 
 > Placeholder. This is the README of the shipped project and the first thing judges see on
-> GitHub. Fill it in once the project is chosen (see `../builder/DECISIONS.md`). Delete this
-> note before submission.
+> GitHub. Fill it in once the project is chosen. Delete this note before submission.
 
 ## What it does
 

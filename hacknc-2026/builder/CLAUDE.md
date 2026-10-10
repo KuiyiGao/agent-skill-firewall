@@ -14,8 +14,9 @@ Paths below are relative to `hacknc-2026/`.
   and it gets configuration only from environment variables.
 - `builder/` is for building: skills, progress log, decisions, builder-tool dependencies,
   real keys in `builder/.env` (git-ignored), packaged skills in `builder/dist/`.
-- New skills go in `builder/skills/<name>/`, with a symlink at
-  `.claude/skills/<name> -> ../../builder/skills/<name>` so sessions load them at startup.
+- Skills: drop a folder (or `.skill` file) into `builder/skills/` and run
+  `python3 builder/skills.py`; `.claude/skills` links to that folder, so every `ok` skill
+  loads at startup. Publish `release/` with `builder/release.sh`.
 
 ## Hard constraints (from the Devpost rules)
 

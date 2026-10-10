@@ -9,7 +9,8 @@ Everything used to build the project that does not ship with it. Paths are relat
 | `builder/PROGRESS.md` | Status board and dated work log; update after every work block |
 | `builder/DECISIONS.md` | Short records of decisions and why |
 | `builder/skills/hacknc-api-catalog/` | Skill: every API / free sandbox from the HackNC pages in one unified format, plus selection guidance |
-| `builder/requirements.txt` | Python dependencies of the builder tools |
+| `builder/skills.py` | Checks and installs skills (`python3 builder/skills.py`) |
+| `builder/release.sh` | Publishes `release/` to the submission repo |
 | `builder/.env.example` | Every API variable named in the catalog; copy to `builder/.env` and fill in |
 | `builder/dist/` | Packaged `.skill` files (git-ignored) |
 
@@ -18,7 +19,7 @@ Everything used to build the project that does not ship with it. Paths are relat
 ```bash
 cd hacknc-2026
 python3 -m venv builder/.venv && . builder/.venv/bin/activate
-pip install -r builder/requirements.txt
+python3 builder/skills.py                      # prints the pip line for skill deps
 cp builder/.env.example builder/.env          # fill in only the keys you use
 ```
 
@@ -34,19 +35,13 @@ python $CAT show elevenlabs
 python $CAT env elevenlabs alpaca-paper-trading   # .env lines for chosen APIs
 ```
 
-Claude Code sessions started in `hacknc-2026/` load the skill at startup through the
-symlink `.claude/skills/hacknc-api-catalog`. Symlinks need macOS/Linux, or Windows with
+Claude Code sessions started in `hacknc-2026/` load every skill in `builder/skills/` at
+startup through the link `.claude/skills -> builder/skills`. Symlinks need macOS/Linux, or Windows with
 `git config core.symlinks true` and developer mode.
 
 ## Adding a skill
 
-```bash
-mkdir -p builder/skills/<name>            # SKILL.md + scripts/ + references/
-ln -s ../../builder/skills/<name> .claude/skills/<name>
-```
-
-Package one for sharing:
-`python -m scripts.package_skill <path-to-skill> builder/dist` from the skill-creator skill.
+See `builder/skills/README.md`.
 
 ## Running the release app with keys
 

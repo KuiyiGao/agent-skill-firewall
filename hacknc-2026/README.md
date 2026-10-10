@@ -1,48 +1,61 @@
 # HackNC 2026 workspace
 
-Our HackNC 2026 project (UNC Chapel Hill, Oct 10-11, 2026), split into two tiers so the
-shipped project stays clean.
+Our HackNC 2026 project (UNC Chapel Hill, Oct 10-11, 2026), in two tiers.
 
 | Tier | Path | Contents | Ships? |
 |---|---|---|---|
-| Release | [`release/`](release/) | Only what the Devpost submission repo contains: app code, its README, its `.env.example`, demo assets | yes |
-| Builder | [`builder/`](builder/) | What people and AI agents use to build it: skills (API catalog), progress log, decisions, dependencies, `.env` with real keys, packaged skills | no |
+| Release | [`release/`](release/) | What the Devpost submission repo contains: app code, its README, its `.env.example`, demo assets | yes |
+| Builder | [`builder/`](builder/) | What people and AI agents use to build it: skills, progress log, decisions, `.env` with real keys, tools | no |
 
 ```
 hacknc-2026/
-├── README.md            this map
-├── CLAUDE.md            loads builder/CLAUDE.md for AI sessions started here
-├── .claude/skills/      symlinks to builder/skills/* so Claude Code finds them at startup
-├── release/             → becomes the submission repo
+├── README.md              this file
+├── CLAUDE.md              loads builder/CLAUDE.md for AI sessions started here
+├── .claude/skills  ->  builder/skills   (one link; every skill dropped there is loaded)
+├── release/               becomes the submission repo; never references builder/
 └── builder/
-    ├── README.md        builder guide (start here as a human builder)
-    ├── CLAUDE.md        rules for AI builders
-    ├── PROGRESS.md      status board + dated log
-    ├── DECISIONS.md     decisions and why
-    ├── skills/          hacknc-api-catalog (and future skills)
-    ├── requirements.txt builder-tool dependencies
-    ├── .env.example     every API variable from the catalog; copy to .env (git-ignored)
-    └── dist/            packaged .skill files (git-ignored)
+    ├── skills/            drop skills here (folder with SKILL.md, or a .skill file)
+    ├── skills.py          check/install skills: python3 builder/skills.py
+    ├── release.sh         publish release/ to the submission repo
+    ├── CLAUDE.md  PROGRESS.md  DECISIONS.md  README.md
+    ├── .env.example       all API variable names; copy to builder/.env (git-ignored)
+    └── dist/              packaged .skill files (git-ignored)
 ```
 
-## Rules that keep the tiers separate
+## Pushing
 
-- `release/` never imports, reads or links anything in `builder/`; it must work after being
-  lifted out on its own. Configuration reaches it only through environment variables.
-- Secrets live in `builder/.env` only. `release/.env.example` lists the variable names the
-  shipped app needs, with no values.
-- Builder-only material (catalog, logs, scratch notes, rehearsal fixtures that are not part
-  of the demo) stays out of `release/`.
-
-## Shipping the release tier
+Day to day, everyone pushes to the shared working branch of this repo. Each person
+mostly touches their own folders (`builder/skills/<their-skill>/`, a module in
+`release/`), so conflicts stay rare.
 
 ```bash
-git subtree split --prefix=hacknc-2026/release -b hacknc-release
-git push <submission-repo-url> hacknc-release:main
+# once
+git clone https://github.com/KuiyiGao/agent-skill-firewall && cd agent-skill-firewall
+git checkout claude/funny-hopper-wbu746
+cd hacknc-2026
+
+# every change
+git pull --rebase                       # get teammates' work first
+python3 builder/skills.py               # if you added or changed a skill: must say ok
+git add release/ builder/               # never add builder/.env (it is git-ignored)
+git commit -m "skills: add <name>"      # or "release: <what changed>"
+git push                                # if rejected: git pull --rebase, then push again
 ```
+
+Publishing the release tier to the submission repo (create an empty GitHub repo first):
+
+```bash
+builder/release.sh git@github.com:<owner>/<project>.git main --dry-run   # preview
+builder/release.sh git@github.com:<owner>/<project>.git main             # publish
+```
+
+`release.sh` refuses to run if `release/` has uncommitted changes, tracks a `.env` or
+keypair file, or references `builder/`. It publishes only `release/` (with its history)
+as the root of the submission repo, fast-forward only. Run it again after every release
+change you want judges to see; the last push must happen before Sunday 10:00 AM Eastern.
 
 ## Unified agent entry
 
-Planned: one entry document (README-style) that any agent reads first and that routes it
-to the right tier, skill and task. Not implemented yet; until then AI sessions get their
-rules from `CLAUDE.md` → `builder/CLAUDE.md`.
+Planned: one README-style entry that any agent reads first and that routes it to the
+right tier, skill and task. Not implemented yet; AI sessions get their rules from
+`CLAUDE.md` → `builder/CLAUDE.md`.

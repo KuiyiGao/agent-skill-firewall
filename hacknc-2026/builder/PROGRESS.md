@@ -22,6 +22,15 @@ Times are Eastern. Newest entries at the top of the log.
 
 ## Log
 
+### 2026-10-10 ~12:20
+- Skill drop-in simplified: `.claude/skills` is now one link to `builder/skills/`, so any
+  skill folder dropped there loads at startup (verified with a fresh `claude -p` session
+  started in `hacknc-2026/`: it listed `hacknc-api-catalog` and a test skill).
+- `builder/skills.py`: unpacks dropped `.skill` files (rejects unsafe paths), validates
+  SKILL.md frontmatter, checks the link, prints the pip line for skill deps.
+- `builder/release.sh`: publishes `release/` to the submission repo with safety checks.
+- Skill deps now live per skill (`<skill>/requirements.txt`); `builder/requirements.txt` removed.
+
 ### 2026-10-10 ~12:05
 - Split the workspace into `release/` (README placeholder, `.gitignore`, `.env.example`)
   and `builder/` (CLAUDE.md, PROGRESS.md, DECISIONS.md, skills, requirements.txt,

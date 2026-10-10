@@ -32,3 +32,11 @@ One entry per decision: date, decision, why, alternatives considered.
   gotchas, mock fallback).
 - **Alternatives:** a single big YAML/JSON file (hard to read, merge conflicts between
   parallel writers); free-form notes (not comparable).
+
+## 2026-10-10: One directory link for skills
+- **Decision:** `.claude/skills` is a single symlink to `../builder/skills`, replacing
+  per-skill links.
+- **Why:** collaborators add a skill by dropping a folder; nothing to register. Verified: a
+  fresh Claude Code session in `hacknc-2026/` discovers skills through the directory link.
+- **Check:** `python3 builder/skills.py` validates skills and the link (and recreates the
+  link if it is missing).
