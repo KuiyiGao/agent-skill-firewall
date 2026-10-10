@@ -14,7 +14,7 @@ card_required: false
 signup_minutes: 15
 auth: "HTTP Basic AccountSid:AuthToken (or API Key SID:Secret)"
 base_url: "https://api.twilio.com/2010-04-01"
-env_vars: [TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER, TWILIO_TO_NUMBER, TWILIO_TEST_ACCOUNT_SID, TWILIO_TEST_AUTH_TOKEN, PUBLIC_BASE_URL]
+env_vars: [TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER, TWILIO_TO_NUMBER, TWILIO_TEST_ACCOUNT_SID, TWILIO_TEST_AUTH_TOKEN, PUBLIC_BASE_URL, TWILIO_MODE]
 sdks: ["python: twilio==9.11.2", "node: twilio@6.1.2"]
 # ---- simulation -----------------------------------------------------------
 sandbox: "Test credentials + magic numbers (From +15005550006) return real-shaped JSON, nothing sent or billed; Console Virtual Phone shows trial SMS on screen"
