@@ -40,3 +40,10 @@ One entry per decision: date, decision, why, alternatives considered.
   fresh Claude Code session in `hacknc-2026/` discovers skills through the directory link.
 - **Check:** `python3 builder/skills.py` validates skills and the link (and recreates the
   link if it is missing).
+
+## 2026-10-10: One rules file for Claude Code and Codex
+- **Decision:** `builder/AGENT_RULES.md` holds the rules; root `CLAUDE.md` is
+  `@builder/AGENT_RULES.md`, root `AGENTS.md` is a symlink to it; skills are linked from both
+  `.claude/skills` and `.agents/skills`.
+- **Why:** one source of truth for every agent; a neutral file name also avoids Claude Code
+  loading a nested `builder/CLAUDE.md` a second time.

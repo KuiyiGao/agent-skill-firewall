@@ -5,7 +5,7 @@ Everything used to build the project that does not ship with it. Paths are relat
 
 | Path | What it is |
 |---|---|
-| `builder/CLAUDE.md` | Rules for AI builders (loaded automatically via the root `CLAUDE.md`) |
+| `builder/AGENT_RULES.md` | Common entry + rules for every agent (loaded via root `CLAUDE.md` and `AGENTS.md`) |
 | `builder/PROGRESS.md` | Status board and dated work log; update after every work block |
 | `builder/DECISIONS.md` | Short records of decisions and why |
 | `builder/skills/hacknc-api-catalog/` | Skill: every API / free sandbox from the HackNC pages in one unified format, plus selection guidance |
@@ -35,8 +35,8 @@ python $CAT show elevenlabs
 python $CAT env elevenlabs alpaca-paper-trading   # .env lines for chosen APIs
 ```
 
-Claude Code sessions started in `hacknc-2026/` load every skill in `builder/skills/` at
-startup through the link `.claude/skills -> builder/skills`. Symlinks need macOS/Linux, or Windows with
+Claude Code and Codex sessions started in `hacknc-2026/` load every skill in
+`builder/skills/` at startup (links `.claude/skills` and `.agents/skills`). Symlinks need macOS/Linux, or Windows with
 `git config core.symlinks true` and developer mode.
 
 ## Adding a skill

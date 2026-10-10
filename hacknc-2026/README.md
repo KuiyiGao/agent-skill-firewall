@@ -10,14 +10,17 @@ Our HackNC 2026 project (UNC Chapel Hill, Oct 10-11, 2026), in two tiers.
 ```
 hacknc-2026/
 ├── README.md              this file
-├── CLAUDE.md              loads builder/CLAUDE.md for AI sessions started here
-├── .claude/skills  ->  builder/skills   (one link; every skill dropped there is loaded)
+├── AGENTS.md  ->  builder/AGENT_RULES.md   (Codex reads this)
+├── CLAUDE.md              @builder/AGENT_RULES.md (Claude Code reads this)
+├── .claude/skills  ->  builder/skills   (Claude Code)
+├── .agents/skills  ->  builder/skills   (Codex)
 ├── release/               becomes the submission repo; never references builder/
 └── builder/
     ├── skills/            drop skills here (folder with SKILL.md, or a .skill file)
     ├── skills.py          check/install skills: python3 builder/skills.py
     ├── release.sh         publish release/ to the submission repo
-    ├── CLAUDE.md  PROGRESS.md  DECISIONS.md  README.md
+    ├── AGENT_RULES.md     common entry + rules for every agent (living document)
+    ├── PROGRESS.md  DECISIONS.md  README.md
     ├── .env.example       all API variable names; copy to builder/.env (git-ignored)
     └── dist/              packaged .skill files (git-ignored)
 ```
@@ -54,8 +57,8 @@ keypair file, or references `builder/`. It publishes only `release/` (with its h
 as the root of the submission repo, fast-forward only. Run it again after every release
 change you want judges to see; the last push must happen before Sunday 10:00 AM Eastern.
 
-## Unified agent entry
+## Common agent entry
 
-Planned: one README-style entry that any agent reads first and that routes it to the
-right tier, skill and task. Not implemented yet; AI sessions get their rules from
-`CLAUDE.md` → `builder/CLAUDE.md`.
+`builder/AGENT_RULES.md` is the one entry point for every building agent. Claude Code
+loads it through `CLAUDE.md`, Codex through `AGENTS.md`; both also load every skill in
+`builder/skills/` (verified with fresh sessions of each). The file is updated continually.

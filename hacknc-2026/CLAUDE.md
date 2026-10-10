@@ -1,1 +1,1 @@
-@builder/CLAUDE.md
+@builder/AGENT_RULES.md

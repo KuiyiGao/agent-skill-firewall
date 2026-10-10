@@ -9,7 +9,8 @@ Drop a skill into builder/skills/ in either form, then run this script:
     python3 builder/skills.py          # install packages, validate, show what is usable
     python3 builder/skills.py --force  # also overwrite folders when unpacking packages
 
-Exit code 1 if any skill is broken or Claude Code would not see the folder.
+Exit code 1 if any skill is broken, or Claude Code / Codex would not see the skills
+or the shared rules (builder/AGENT_RULES.md).
 Standard library only, so it runs before any setup.
 """
 
@@ -26,7 +27,13 @@ BUILDER = Path(__file__).resolve().parent
 SKILLS = BUILDER / "skills"
 DIST = BUILDER / "dist"
 WORKSPACE = BUILDER.parent
-LINK = WORKSPACE / ".claude" / "skills"
+# Where each agent looks for project skills; each must be a link to builder/skills.
+AGENT_LINKS = {
+    "Claude Code": WORKSPACE / ".claude" / "skills",
+    "Codex": WORKSPACE / ".agents" / "skills",
+}
+# Where each agent reads project rules; each must resolve to builder/AGENT_RULES.md.
+RULES = BUILDER / "AGENT_RULES.md"
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
 FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n", re.S)
@@ -88,21 +95,32 @@ def install_packages(force: bool) -> list[str]:
     return msgs
 
 
-def check_link() -> str | None:
-    """Claude Code reads <workspace>/.claude/skills; it must resolve to builder/skills."""
-    if LINK.exists() and LINK.resolve() == SKILLS.resolve():
-        return None
-    if not LINK.exists() and not LINK.is_symlink():
-        try:
-            LINK.parent.mkdir(exist_ok=True)
-            LINK.symlink_to(Path("..") / "builder" / "skills", target_is_directory=True)
-            return None
-        except OSError:
-            pass
-    return (".claude/skills does not point to builder/skills, so Claude Code will not see "
-            "these skills. On Windows enable symlinks (Developer Mode + "
-            "`git config core.symlinks true`, then re-checkout), or on macOS/Linux run: "
-            "rm -rf hacknc-2026/.claude/skills && ln -s ../builder/skills hacknc-2026/.claude/skills")
+def check_links() -> list[str]:
+    """Each agent's skills dir must resolve to builder/skills; recreate missing links."""
+    problems = []
+    for agent, link in AGENT_LINKS.items():
+        if link.exists() and link.resolve() == SKILLS.resolve():
+            continue
+        if not link.exists() and not link.is_symlink():
+            try:
+                link.parent.mkdir(exist_ok=True)
+                link.symlink_to(Path("..") / "builder" / "skills", target_is_directory=True)
+                continue
+            except OSError:
+                pass
+        rel = link.relative_to(WORKSPACE)
+        problems.append(
+            f"{rel} does not point to builder/skills, so {agent} will not see these skills. "
+            f"On Windows enable symlinks (Developer Mode + `git config core.symlinks true`, then "
+            f"re-checkout); on macOS/Linux, from hacknc-2026/: rm -rf {rel} && ln -s ../builder/skills {rel}")
+    agents_md = WORKSPACE / "AGENTS.md"
+    if not (agents_md.exists() and agents_md.resolve() == RULES.resolve()):
+        problems.append("AGENTS.md (read by Codex) should be a link to builder/AGENT_RULES.md; "
+                        "from hacknc-2026/: rm -f AGENTS.md && ln -s builder/AGENT_RULES.md AGENTS.md")
+    claude_md = WORKSPACE / "CLAUDE.md"
+    if "@builder/AGENT_RULES.md" not in (claude_md.read_text() if claude_md.is_file() else ""):
+        problems.append("CLAUDE.md (read by Claude Code) should contain the line @builder/AGENT_RULES.md")
+    return problems
 
 
 def check_skill(folder: Path) -> tuple[str, list[str], list[str]]:
@@ -123,7 +141,7 @@ def check_skill(folder: Path) -> tuple[str, list[str], list[str]]:
     elif name != folder.name:
         warnings.append(f"name {name!r} differs from folder {folder.name!r}; rename one to match")
     if not desc:
-        errors.append("frontmatter is missing `description` (Claude uses it to decide when to load the skill)")
+        errors.append("frontmatter is missing `description` (agents use it to decide when to load the skill)")
     elif len(desc) > 1024:
         warnings.append(f"description is {len(desc)} chars; keep it under 1024")
     elif len(desc) < 40:
@@ -137,7 +155,7 @@ def main(argv: list[str]) -> int:
     for msg in install_packages(force):
         print(msg)
 
-    link_problem = check_link()
+    link_problems = check_links()
     folders = sorted(p for p in SKILLS.iterdir() if p.is_dir() and not p.name.startswith("."))
     rows, bad, seen = [], 0, {}
     for folder in folders:
@@ -158,11 +176,12 @@ def main(argv: list[str]) -> int:
     req = [f"builder/skills/{f}/requirements.txt" for _, f, d, _ in rows if d]
     if req:
         print("\nPython deps (run from hacknc-2026/):\n  pip install " + " ".join(f"-r {r}" for r in req))
-    if link_problem:
-        print(f"\nPROBLEM: {link_problem}")
-    elif rows:
-        print("\nClaude Code sessions started in hacknc-2026/ load every 'ok' skill at startup.")
-    return 1 if bad or link_problem else 0
+    for problem in link_problems:
+        print(f"\nPROBLEM: {problem}")
+    if rows and not link_problems:
+        print(f"\n{' and '.join(AGENT_LINKS)} sessions started in hacknc-2026/ load every 'ok' "
+              "skill at startup and read builder/AGENT_RULES.md.")
+    return 1 if bad or link_problems else 0
 
 
 if __name__ == "__main__":

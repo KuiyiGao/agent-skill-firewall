@@ -22,6 +22,17 @@ Times are Eastern. Newest entries at the top of the log.
 
 ## Log
 
+### 2026-10-10 ~12:45
+- Common entry for every agent: rules moved to `builder/AGENT_RULES.md` (living document);
+  `CLAUDE.md` imports it, `AGENTS.md` links to it; `.agents/skills` links to
+  `builder/skills/` for Codex. Verified with fresh sessions: Claude Code (`claude -p`) and
+  Codex 0.162.1 (`codex debug prompt-input`) both load the rules and the skills.
+- `skills.py` checks both agents' skill links and both rule entry files.
+- Retried the blocked pages from the cloud sandbox: Notion, Devpost, hacknc.com, mlh.com and
+  docs.google.com are still blocked by the network policy. The resources doc was re-read via
+  the Drive connector and matches the catalog (15 entries). **Next (local session):** open the
+  Notion tracks page and Devpost and check `references/tracks.md` against them.
+
 ### 2026-10-10 ~12:30
 - `builder/CLAUDE.md`: new section saying everything in `builder/` may be changed while the
   tooling is under construction (with the checks to run and what stays fixed).

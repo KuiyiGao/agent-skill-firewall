@@ -1,4 +1,12 @@
-# Instructions for AI builders (HackNC 2026)
+# Rules for AI builders (HackNC 2026)
+
+These rules apply to every coding agent working here. Claude Code loads this file through
+`CLAUDE.md` (`@builder/AGENT_RULES.md`), Codex through `AGENTS.md` (a link to this file).
+Keep one copy of the rules, here. This is the common entry point for every agent.
+
+> Living document: this file and everything it points to are updated continually while the
+> builder tooling is under construction. Re-read it at the start of each session and trust
+> the latest version over anything you remember.
 
 You are helping a hackathon team build a project at HackNC 2026. The team's direction is
 AI-agent monitoring and visualization for finance, or AI agents for a financial company.
@@ -15,8 +23,10 @@ Paths below are relative to `hacknc-2026/`.
 - `builder/` is for building: skills, progress log, decisions, builder-tool dependencies,
   real keys in `builder/.env` (git-ignored), packaged skills in `builder/dist/`.
 - Skills: drop a folder (or `.skill` file) into `builder/skills/` and run
-  `python3 builder/skills.py`; `.claude/skills` links to that folder, so every `ok` skill
-  loads at startup. Publish `release/` with `builder/release.sh`.
+  `python3 builder/skills.py`. `.claude/skills` (Claude Code) and `.agents/skills` (Codex)
+  both link to that folder, so every `ok` skill loads at startup in either agent. Write
+  skills in the shared SKILL.md format (`name` + `description` frontmatter) so both can
+  use them. Publish `release/` with `builder/release.sh`.
 
 ## builder/ is under construction: you may change anything in it
 

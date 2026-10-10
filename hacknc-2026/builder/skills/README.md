@@ -1,7 +1,8 @@
 # builder/skills: drop your skills here
 
-Every folder in here is a Claude Code skill for everyone on the team. `.claude/skills`
-points at this folder, so a session started in `hacknc-2026/` loads all of them at startup.
+Every folder in here is a skill for everyone on the team, in the shared SKILL.md format.
+`.claude/skills` (Claude Code) and `.agents/skills` (Codex) point at this folder, so a
+session of either agent started in `hacknc-2026/` loads all of them at startup.
 There is no registration step.
 
 ## Add a skill
@@ -13,7 +14,7 @@ There is no registration step.
    ```bash
    python3 builder/skills.py
    ```
-   `ok` means Claude Code will load it. Fix anything marked `BROKEN`.
+   `ok` means Claude Code and Codex will load it. Fix anything marked `BROKEN`.
 3. Commit the folder (see "Pushing" in the workspace README).
 
 ## Minimum SKILL.md
@@ -35,4 +36,4 @@ Instructions for Claude. Put long reference material in references/ and scripts 
 - Python dependencies go in `<name>/requirements.txt`; `skills.py` prints one `pip install`
   line for all skills.
 - Keys go in `builder/.env`, never inside a skill. Name the env vars in the skill instead.
-- Folder names must be unique; restart the Claude Code session after adding a skill.
+- Folder names must be unique; restart the agent session after adding a skill.
