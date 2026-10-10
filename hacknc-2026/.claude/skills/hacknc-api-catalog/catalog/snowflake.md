@@ -22,7 +22,7 @@ offline_mock: medium
 # ---- fit for builders -----------------------------------------------------
 demo_effect: 4
 integration_hours: "2-4"
-risk: medium
+risk: high
 track_fit: [mlh-snowflake, hacknc-general, sponsor-finance]
 finance_fit: 4
 tags: [llm, cortex, sql, data-warehouse, rest-api, streamlit, marketplace, finance-data, agents, pat]
@@ -34,6 +34,8 @@ docs: ["https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql", "https
 
 ## TL;DR
 Snowflake is a cloud data warehouse. Its **Cortex AI** features expose hosted LLMs in two ways: as SQL functions (`AI_COMPLETE`, `AI_CLASSIFY`, `AI_SENTIMENT` and others) and as REST endpoints. That is the MLH pitch: many LLMs on one account. The trial gives $400 or 30 days with no card. Budget about 15 minutes before your first API call, because a new account needs a **PAT**, a **network policy** for that PAT, a warehouse, and usually cross-region inference turned on.
+
+**Check this first:** MLH's own Snowflake demo repo (README, May 2026) says `SNOWFLAKE.CORTEX.COMPLETE` is blocked on trial accounts (`399258 (0A000): AI function COMPLETE is not available for trial accounts`). Run one `AI_COMPLETE` and one `AI_CLASSIFY` query in the first ten minutes of the trial. If they fail, either use the MLH 120-day student trial (whether it lifts the block is unverified) or build the prize entry on non-LLM Snowflake features (SQL analytics, Marketplace data, Streamlit) and keep the LLM elsewhere.
 
 ## Request structure
 One-time setup in a Snowsight worksheet as ACCOUNTADMIN. This is the throwaway-trial version, never for production:
@@ -104,6 +106,7 @@ Other SQL functions, with names checked in the Snowpark 1.55.1 source: `AI_FILTE
 This is a good fit. Use it as the **audit and analytics plane**, not the hot-path gate. Write every tool-call event to an `AGENT_EVENTS` table through the SQL API or connector. Batch-score events with `AI_CLASSIFY` / `AI_COMPLETE(..., response_format)` for PASS/HOLD/BLOCK plus a reason. Run `AI_AGG` for a daily compliance digest. Join with free stock prices for market context. A compliance officer can ask Cortex Analyst "BLOCKs per desk this week?". The pitch: "the LLM runs where the regulated data already lives, under Snowflake governance." For per-call real-time verdicts, call `inference:complete` with `stream:false` instead of a warehouse query (latency unverified).
 
 ## Gotchas
+- **Cortex LLM functions may not run on a trial:** `AI function COMPLETE is not available for trial accounts` (error 399258, quoted in https://raw.githubusercontent.com/MLH/snowflake-postcard/main/README.md, official-docs). Whether `AI_CLASSIFY` / `AI_SENTIMENT` / the REST `inference:complete` endpoint are blocked too is unverified; test before designing around them.
 - **Trial clock:** the trial ends at $400 or 30 days, whichever comes first, and the account is then suspended until you add a card. Snowflake's education team does not extend trials. Sign up on the day; don't start it a week early.
 - **MFA:** Snowflake is phasing out single-factor passwords. In 2026, new human users must use MFA, and service users cannot use passwords. The docs say the phases exclude trial accounts (search-snippet), but Snowsight may still prompt you to enroll. Don't script with `SNOWFLAKE_PASSWORD`; use the PAT, or key-pair for service users.
 - **PAT + network policy:** a PAT is rejected without a network policy, and the error looks like "invalid token". The fix is the policy above, or `MINS_TO_BYPASS_NETWORK_POLICY_REQUIREMENT` on the token. The secret is shown once.
@@ -136,3 +139,4 @@ For REST calls, record real `inference:complete` and `/statements` JSON into `fi
 - https://www.mlh.com/partners/snowflake (120-day trial link) and mlh.com event prize pages (Arduino Student Kit) — search-snippet
 - https://app.snowflake.com/marketplace/listing/GZTSZ290BV255 (Snowflake Public Data Free) — search-snippet
 - https://github.com/Snowflake-Labs/mcp (deprecation banner) — sdk-source; pypi.org JSON for all versions — sdk-source
+- https://raw.githubusercontent.com/MLH/snowflake-postcard/main/README.md (trial accounts block CORTEX.COMPLETE) — official-docs

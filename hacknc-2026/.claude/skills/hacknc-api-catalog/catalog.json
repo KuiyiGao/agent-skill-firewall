@@ -1,0 +1,1409 @@
+[
+  {
+    "id": "alpaca-news",
+    "name": "Alpaca Market Data News API (Benzinga)",
+    "provider": "Alpaca Markets (content by Benzinga)",
+    "category": "finance-data",
+    "source": "extra",
+    "listed_as": "",
+    "status": "active",
+    "cost_model": "free",
+    "free_allowance": "Included with a free Alpaca account; ~200 calls/min (2022 figure, unverified); history back to 2015",
+    "card_required": false,
+    "signup_minutes": 10,
+    "auth": "Headers APCA-API-KEY-ID + APCA-API-SECRET-KEY (same paper keys)",
+    "base_url": "https://data.alpaca.markets/v1beta1/news",
+    "env_vars": [
+      "ALPACA_API_KEY",
+      "ALPACA_SECRET_KEY"
+    ],
+    "sdks": [
+      "python: alpaca-py==0.44.0"
+    ],
+    "sandbox": "Real historical news, read-only; no side effects",
+    "offline_mock": "easy",
+    "demo_effect": 2,
+    "integration_hours": "0.5-1",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general",
+      "sponsor-finance"
+    ],
+    "finance_fit": 5,
+    "tags": [
+      "news",
+      "market-news",
+      "tickers",
+      "sentiment",
+      "research-agent",
+      "prompt-injection-test"
+    ],
+    "verified": "sdk-source",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://docs.alpaca.markets/us/docs/historical-news-data",
+      "https://alpaca.markets/blog/introducing-news-api-for-real-time-fiancial-news/"
+    ],
+    "file": "catalog/alpaca-news.md"
+  },
+  {
+    "id": "alpaca-paper-trading",
+    "name": "Alpaca Trading API (paper account)",
+    "provider": "Alpaca Markets",
+    "category": "finance-trading",
+    "source": "extra",
+    "listed_as": "",
+    "status": "active",
+    "cost_model": "free",
+    "free_allowance": "Paper-only account with email signup, no KYC, $100k simulated cash by default; free IEX market-data feed",
+    "card_required": false,
+    "signup_minutes": 10,
+    "auth": "Headers APCA-API-KEY-ID + APCA-API-SECRET-KEY (paper keys differ from live keys)",
+    "base_url": "https://paper-api.alpaca.markets",
+    "env_vars": [
+      "ALPACA_API_KEY",
+      "ALPACA_SECRET_KEY",
+      "BROKER"
+    ],
+    "sdks": [
+      "python: alpaca-py==0.44.0 (Python 3.10+)"
+    ],
+    "sandbox": "Paper trading is the simulation: real order lifecycle (accepted/new/filled/rejected), real buying-power checks, simulated fills at market prices",
+    "offline_mock": "easy",
+    "demo_effect": 3,
+    "integration_hours": "1-2",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general",
+      "sponsor-finance"
+    ],
+    "finance_fit": 5,
+    "tags": [
+      "trading",
+      "orders",
+      "brokerage",
+      "paper-trading",
+      "portfolio",
+      "positions",
+      "simulation"
+    ],
+    "verified": "sdk-source",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://docs.alpaca.markets/docs/paper-trading",
+      "https://docs.alpaca.markets/docs/orders-at-alpaca",
+      "https://github.com/alpacahq/alpaca-py"
+    ],
+    "file": "catalog/alpaca-paper-trading.md"
+  },
+  {
+    "id": "arcgis-location-platform",
+    "name": "ArcGIS Location Platform (basemaps, geocoding, places, routing; Maps SDK for JS 5.x)",
+    "provider": "Esri",
+    "category": "geo",
+    "source": "resources-doc",
+    "listed_as": "ArcGIS",
+    "status": "changed",
+    "cost_model": "free-tier",
+    "free_allowance": "Monthly: 2,000,000 basemap tiles and 20,000 geocodes (not stored); ~20,000 simple routes and a small Places tier (~500 searches / 100 details) (unverified); no card unless you enable pay-as-you-go",
+    "card_required": false,
+    "signup_minutes": 10,
+    "auth": "Query token=<API key> on REST; esriConfig.apiKey or ApiKeyManager.fromKey(key) in JS. Keys come from 'API key credentials' (expire after 1 day to 1 year)",
+    "base_url": "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer | https://places-api.arcgis.com/arcgis/rest/services/places-service/v1 | https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World | https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2",
+    "env_vars": [
+      "ARCGIS_API_KEY"
+    ],
+    "sdks": [
+      "browser: @arcgis/map-components@5.1.27 (CDN https://js.arcgis.com/5.1/)",
+      "browser: @arcgis/core@5.1.27",
+      "js: @esri/arcgis-rest-request@4.11.0 + @esri/arcgis-rest-geocoding/-places/-routing@4.11.0",
+      "maplibre: @esri/maplibre-arcgis@1.3.1 (peer maplibre-gl ~5.24.0 || ~6.3.0)",
+      "python: arcgis==2.4.3 (Python 3.11-3.14, heavy deps)"
+    ],
+    "sandbox": "No test mode; the monthly free tier is the sandbox. Without pay-as-you-go enabled, calls just stop working when a free tier is used up (no bill)",
+    "offline_mock": "easy",
+    "demo_effect": 4,
+    "integration_hours": "1-3",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-beginner",
+      "hacknc-frutiger-aero",
+      "hacknc-community"
+    ],
+    "finance_fit": 3,
+    "tags": [
+      "maps",
+      "geocoding",
+      "places",
+      "poi",
+      "routing",
+      "basemap",
+      "heatmap",
+      "clustering",
+      "choropleth",
+      "3d-globe",
+      "maplibre",
+      "atm-locator",
+      "fraud-geo"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://developers.arcgis.com/documentation/",
+      "https://location.arcgis.com/pricing/",
+      "https://developers.arcgis.com/javascript/latest/",
+      "https://developers.arcgis.com/maplibre-gl-js/",
+      "https://github.com/Esri/arcgis-rest-js"
+    ],
+    "file": "catalog/arcgis-location-platform.md"
+  },
+  {
+    "id": "capital-one-nessie",
+    "name": "Capital One Nessie (hackathon mock banking API)",
+    "provider": "Capital One",
+    "category": "finance-data",
+    "source": "extra",
+    "listed_as": "",
+    "status": "dead",
+    "cost_model": "free",
+    "free_allowance": "Was free with a key from the Nessie site; reported down since 2025 (unverified)",
+    "card_required": false,
+    "signup_minutes": 10,
+    "auth": "Query param ?key=<key>",
+    "base_url": "http://api.nessieisreal.com",
+    "env_vars": [
+      "NESSIE_API_KEY"
+    ],
+    "sdks": [
+      "none current (nessieisreal/nessie-android-sdk, last commit 2017)"
+    ],
+    "sandbox": "The whole API was a sandbox of fake customers, accounts and transactions",
+    "offline_mock": "easy",
+    "demo_effect": 2,
+    "integration_hours": "1 (if alive)",
+    "risk": "high",
+    "track_fit": [
+      "sponsor-finance"
+    ],
+    "finance_fit": 3,
+    "tags": [
+      "banking",
+      "accounts",
+      "transactions",
+      "mock",
+      "capital-one"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://github.com/nessieisreal/nessie-android-sdk"
+    ],
+    "file": "catalog/capital-one-nessie.md"
+  },
+  {
+    "id": "claude-api",
+    "name": "Claude API (Messages + tool use, Anthropic Python SDK)",
+    "provider": "Anthropic",
+    "category": "llm",
+    "source": "extra",
+    "listed_as": "",
+    "status": "active",
+    "cost_model": "paid-only",
+    "free_allowance": "Pay-as-you-go; Opus 5.5 $4/$20, Sonnet 5.5 $2/$10, Haiku 5.5 $0.10/$0.50 per 1M input/output tokens; any free credits depend on your account",
+    "card_required": true,
+    "signup_minutes": 10,
+    "auth": "Header x-api-key: <key> (SDK reads ANTHROPIC_API_KEY)",
+    "base_url": "https://api.anthropic.com/v1/messages",
+    "env_vars": [
+      "ANTHROPIC_API_KEY"
+    ],
+    "sdks": [
+      "python: anthropic==1.13.0",
+      "node: @anthropic-ai/sdk (version unverified)"
+    ],
+    "sandbox": "No sandbox; cache responses for scripted demo scenes (replay mode)",
+    "offline_mock": "medium",
+    "demo_effect": 3,
+    "integration_hours": "2-3 (3 agents with tools)",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general"
+    ],
+    "finance_fit": 5,
+    "tags": [
+      "llm",
+      "agents",
+      "tool-use",
+      "function-calling",
+      "human-in-the-loop",
+      "approval-gate"
+    ],
+    "verified": "sdk-source",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://platform.claude.com/docs",
+      "https://github.com/anthropics/anthropic-sdk-python"
+    ],
+    "file": "catalog/claude-api.md"
+  },
+  {
+    "id": "dialogflow",
+    "name": "Google Dialogflow (ES and CX / Conversational Agents)",
+    "provider": "Google Cloud",
+    "category": "conversational",
+    "source": "resources-doc",
+    "listed_as": "Google Dialogflow (Text/Voice Interfaces)",
+    "status": "changed",
+    "cost_model": "free-tier",
+    "free_allowance": "ES Trial edition: text free (180 req/min), audio 1,000/day & 15,000/month; CX: $600 flow credit + $1,000 generative credit for 12 months (needs a billing account)",
+    "card_required": true,
+    "signup_minutes": 25,
+    "auth": "Authorization: Bearer <OAuth2 token> from a service account (GOOGLE_APPLICATION_CREDENTIALS) or ADC; role roles/dialogflow.client",
+    "base_url": "https://dialogflow.googleapis.com/v2 (ES) | https://{location}-dialogflow.googleapis.com/v3 (CX)",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "DIALOGFLOW_PROJECT_ID",
+      "DIALOGFLOW_LOCATION",
+      "DIALOGFLOW_AGENT_ID"
+    ],
+    "sdks": [
+      "python: google-cloud-dialogflow==2.53.0",
+      "python: google-cloud-dialogflow-cx==2.9.0",
+      "node: @google-cloud/dialogflow@8.3.0",
+      "node: @google-cloud/dialogflow-cx@6.3.0"
+    ],
+    "sandbox": "ES Trial edition is free and rate-limited; both consoles have a built-in simulator that shows the raw JSON. No fake-credential mode",
+    "offline_mock": "easy",
+    "demo_effect": 3,
+    "integration_hours": "2-4",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-beginner"
+    ],
+    "finance_fit": 2,
+    "tags": [
+      "chatbot",
+      "voice",
+      "intents",
+      "conversational",
+      "agent-builder",
+      "google-cloud"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://cloud.google.com/dialogflow/docs/quick",
+      "https://cloud.google.com/dialogflow/es/docs",
+      "https://cloud.google.com/dialogflow/cx/docs",
+      "https://cloud.google.com/dialogflow/quotas",
+      "https://cloud.google.com/products/dialogflow-es/pricing"
+    ],
+    "file": "catalog/dialogflow.md"
+  },
+  {
+    "id": "elevenlabs",
+    "name": "ElevenLabs (Text-to-Speech + ElevenAgents voice agents)",
+    "provider": "ElevenLabs",
+    "category": "voice",
+    "source": "tracks-page",
+    "listed_as": "[MLH] Best Use of ElevenLabs",
+    "status": "active",
+    "cost_model": "free-tier",
+    "free_allowance": "~10k credits/month (flash/turbo ~0.5 credit/char) + ~10-15 agent minutes/month, no commercial license, attribution required (unverified)",
+    "card_required": false,
+    "signup_minutes": 5,
+    "auth": "Header xi-api-key: <key>",
+    "base_url": "https://api.elevenlabs.io",
+    "env_vars": [
+      "ELEVENLABS_API_KEY",
+      "ELEVENLABS_VOICE_ID",
+      "ELEVENLABS_AGENT_ID"
+    ],
+    "sdks": [
+      "python: elevenlabs==2.71.0",
+      "react: @elevenlabs/react@1.17.0",
+      "browser: @elevenlabs/client@1.27.0",
+      "widget: @elevenlabs/convai-widget-embed@0.19.0"
+    ],
+    "sandbox": "No test mode; free tier credits are the sandbox. Cache generated mp3s so re-runs cost nothing.",
+    "offline_mock": "easy",
+    "demo_effect": 5,
+    "integration_hours": "1-2 (TTS) / 3-5 (voice agent)",
+    "risk": "low",
+    "track_fit": [
+      "mlh-elevenlabs",
+      "hacknc-general"
+    ],
+    "finance_fit": 4,
+    "tags": [
+      "voice",
+      "tts",
+      "speech",
+      "voice-agent",
+      "alerts",
+      "approval",
+      "human-in-the-loop",
+      "accessibility"
+    ],
+    "verified": "sdk-source",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://elevenlabs.io/docs",
+      "https://github.com/elevenlabs/elevenlabs-python",
+      "https://www.npmjs.com/package/@elevenlabs/react"
+    ],
+    "file": "catalog/elevenlabs.md"
+  },
+  {
+    "id": "faker",
+    "name": "Faker (synthetic PII / clients / transactions)",
+    "provider": "joke2k/faker (open source)",
+    "category": "synthetic-data",
+    "source": "extra",
+    "listed_as": "",
+    "status": "active",
+    "cost_model": "free",
+    "free_allowance": "Open source (MIT), fully offline",
+    "card_required": false,
+    "signup_minutes": 0,
+    "auth": "None (local library)",
+    "base_url": "n/a (pip install faker)",
+    "env_vars": [
+      "FAKER_SEED"
+    ],
+    "sdks": [
+      "python: Faker==40.43.0",
+      "node: @faker-js/faker (version unverified)"
+    ],
+    "sandbox": "Everything is simulated: deterministic fake people, SSNs, addresses, bank accounts with a fixed seed",
+    "offline_mock": "easy",
+    "demo_effect": 1,
+    "integration_hours": "0.5",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general"
+    ],
+    "finance_fit": 4,
+    "tags": [
+      "synthetic-data",
+      "pii",
+      "mock",
+      "clients",
+      "seed-data",
+      "offline"
+    ],
+    "verified": "sdk-source",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://faker.readthedocs.io",
+      "https://github.com/joke2k/faker"
+    ],
+    "file": "catalog/faker.md"
+  },
+  {
+    "id": "gemini-api",
+    "name": "Google Gemini API (AI Studio key, google-genai SDK)",
+    "provider": "Google",
+    "category": "llm",
+    "source": "tracks-page",
+    "listed_as": "[MLH] Best Use of Gemini API",
+    "status": "active",
+    "cost_model": "free-tier",
+    "free_allowance": "Free tier on Flash / Flash-Lite models, no card. Per-model RPM/RPD shown only in AI Studio (3rd-party guides: ~10 RPM and 250-1,500 RPD for Flash, unverified). Pro needs billing",
+    "card_required": false,
+    "signup_minutes": 3,
+    "auth": "Header x-goog-api-key: <key> (key from aistudio.google.com/apikey)",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "env_vars": [
+      "GEMINI_API_KEY",
+      "GEMINI_MODEL"
+    ],
+    "sdks": [
+      "python: google-genai==2.29.0",
+      "node: @google/genai@2.28.0"
+    ],
+    "sandbox": "Free tier is the sandbox (real calls, rate-limited; Google may use free-tier prompts to improve its products). AI Studio playground exports curl/Python",
+    "offline_mock": "easy",
+    "demo_effect": 4,
+    "integration_hours": "1-2",
+    "risk": "low",
+    "track_fit": [
+      "mlh-gemini",
+      "hacknc-general",
+      "sponsor-finance"
+    ],
+    "finance_fit": 4,
+    "tags": [
+      "llm",
+      "multimodal",
+      "pdf",
+      "vision",
+      "function-calling",
+      "structured-output",
+      "second-opinion",
+      "mlh"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://ai.google.dev/gemini-api/docs",
+      "https://ai.google.dev/gemini-api/docs/changelog",
+      "https://ai.google.dev/gemini-api/docs/rate-limits",
+      "https://github.com/googleapis/python-genai",
+      "https://googleapis.github.io/python-genai/"
+    ],
+    "file": "catalog/gemini-api.md"
+  },
+  {
+    "id": "google-maps-platform",
+    "name": "Google Maps Platform (Maps JS, Geocoding, Places API (New), Routes API)",
+    "provider": "Google",
+    "category": "geo",
+    "source": "resources-doc",
+    "listed_as": "Google Maps",
+    "status": "changed",
+    "cost_model": "free-tier",
+    "free_allowance": "Per-SKU monthly free caps since 2025-03-01 (the $200 credit is gone): Essentials 10,000 (Dynamic Maps, Geocoding, Compute Routes), Pro 5,000 (Text Search Pro), Enterprise 1,000, Map Tiles 100,000, Text Search IDs-only unlimited; billing account with card required",
+    "card_required": true,
+    "signup_minutes": 15,
+    "auth": "Query ?key=<key> (Maps JS, Geocoding) or header X-Goog-Api-Key: <key> plus required X-Goog-FieldMask (Places New, Routes)",
+    "base_url": "https://maps.googleapis.com/maps/api | https://places.googleapis.com/v1 | https://routes.googleapis.com",
+    "env_vars": [
+      "GOOGLE_MAPS_API_KEY",
+      "VITE_GOOGLE_MAPS_API_KEY"
+    ],
+    "sdks": [
+      "browser: @googlemaps/js-api-loader@2.1.3",
+      "react: @vis.gl/react-google-maps@1.10.1",
+      "browser: @googlemaps/markerclusterer@2.6.2",
+      "python: google-maps-places==0.9.1",
+      "python: google-maps-routing==0.11.2",
+      "python (legacy web services): googlemaps==4.10.0",
+      "node: @googlemaps/places@3.0.1",
+      "heatmap: @deck.gl/google-maps@9.4.0"
+    ],
+    "sandbox": "No test mode or test keys; the per-SKU free caps are the sandbox. New Cloud customers also get a $300 / 90-day trial credit. mapId DEMO_MAP_ID works in dev.",
+    "offline_mock": "easy",
+    "demo_effect": 5,
+    "integration_hours": "1-3",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-beginner",
+      "hacknc-frutiger-aero",
+      "hacknc-community",
+      "mlh-gemini"
+    ],
+    "finance_fit": 3,
+    "tags": [
+      "maps",
+      "geocoding",
+      "places",
+      "poi",
+      "routing",
+      "heatmap",
+      "clustering",
+      "3d",
+      "atm-locator",
+      "fraud-geo",
+      "mcp",
+      "grounding"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://developers.google.com/maps/documentation",
+      "https://developers.google.com/maps/billing-and-pricing/pricing",
+      "https://developers.google.com/maps/documentation/places/web-service/text-search",
+      "https://developers.google.com/maps/documentation/routes",
+      "https://developers.google.com/maps/ai/grounding-lite"
+    ],
+    "file": "catalog/google-maps-platform.md"
+  },
+  {
+    "id": "google-research-datasets",
+    "name": "Google Research Datasets + Dataset Search",
+    "provider": "Google Research / Google DeepMind",
+    "category": "dataset",
+    "source": "resources-doc",
+    "listed_as": "Google Datasets for Research/Projects",
+    "status": "active",
+    "cost_model": "free",
+    "free_allowance": "All downloads free, no key; license per dataset (SGD CC BY-SA 4.0, DICES/Seahorse CC BY 4.0, ToTTo CC BY-SA 3.0)",
+    "card_required": false,
+    "signup_minutes": 0,
+    "auth": "none (public GCS buckets and GitHub raw URLs)",
+    "base_url": "https://storage.googleapis.com/<bucket>/ and https://raw.githubusercontent.com/google-research-datasets/<repo>/master/",
+    "env_vars": [],
+    "sdks": [
+      "python: tensorflow-datasets==4.9.10",
+      "python: datasets==5.1.0 (HF mirrors)"
+    ],
+    "sandbox": "Static files; fully offline once downloaded. SGD's recorded service_call/service_results can act as a fake bank API",
+    "offline_mock": "easy",
+    "demo_effect": 2,
+    "integration_hours": "1-2",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general"
+    ],
+    "finance_fit": 2,
+    "tags": [
+      "dataset",
+      "dialogue",
+      "agent-eval",
+      "llm-safety",
+      "banking",
+      "offline"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://research.google/resources/datasets/",
+      "https://datasetsearch.research.google.com/",
+      "https://github.com/google-research-datasets",
+      "https://www.tensorflow.org/datasets/catalog/overview"
+    ],
+    "file": "catalog/google-research-datasets.md"
+  },
+  {
+    "id": "here-platform",
+    "name": "HERE Platform (Maps API for JavaScript 3.2, Geocoding & Search v7, Routing v8, Isoline v8)",
+    "provider": "HERE Technologies",
+    "category": "geo",
+    "source": "resources-doc",
+    "listed_as": "HERE Technologies Developer",
+    "status": "changed",
+    "cost_model": "free-tier",
+    "free_allowance": "Base plan free monthly tier per service: ~30,000 transactions/month for Geocoding & Search and for map tiles; routing quoted as 5,000-30,000 (unverified, sources conflict); payment method required, the no-card Limited plan ended 2025",
+    "card_required": true,
+    "signup_minutes": 20,
+    "auth": "Query apiKey=<key> on every REST call; new H.service.Platform({apikey}) in JS (OAuth 2.0 bearer tokens are the alternative)",
+    "base_url": "https://{geocode|discover|browse|autosuggest|lookup}.search.hereapi.com/v1 | https://router.hereapi.com/v8 | https://isoline.router.hereapi.com/v8 | https://maps.hereapi.com/v3",
+    "env_vars": [
+      "HERE_API_KEY"
+    ],
+    "sdks": [
+      "browser: HERE Maps API for JavaScript 3.2 (CDN https://js.api.here.com/v3/3.2/)",
+      "python: flexpolyline==0.1.0 (official polyline decoder; no maintained REST SDK, use requests)",
+      "node: @here/flexpolyline@0.1.0"
+    ],
+    "sandbox": "none; the Base plan's free monthly transactions are the sandbox, and a payment method must be on file",
+    "offline_mock": "easy",
+    "demo_effect": 3,
+    "integration_hours": "2-3",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-community"
+    ],
+    "finance_fit": 2,
+    "tags": [
+      "maps",
+      "geocoding",
+      "places",
+      "poi",
+      "routing",
+      "isoline",
+      "clustering",
+      "fleet",
+      "logistics",
+      "atm-locator",
+      "fraud-geo"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://www.here.com/docs",
+      "https://github.com/heremaps/maps-api-for-javascript-examples",
+      "https://www.here.com/get-started/pricing",
+      "https://platform.here.com"
+    ],
+    "file": "catalog/here-platform.md"
+  },
+  {
+    "id": "ibm-call-for-code-starter-kits",
+    "name": "IBM Call for Code COVID-19 Solution Starter Kits (2020)",
+    "provider": "IBM / Call for Code",
+    "category": "starter-kit",
+    "source": "resources-doc",
+    "listed_as": "COVID-19 Cooperation/Communication/Education Starter Kit",
+    "status": "legacy",
+    "cost_model": "free",
+    "free_allowance": "Repos Apache-2.0; IBM watsonx Assistant Lite ~1,000 MAU / 10,000 msgs per month (unverified); Cloudant Lite tier",
+    "card_required": "unknown",
+    "signup_minutes": 30,
+    "auth": "IBM Cloud IAM API key per service (IamAuthenticator); HERE API key for maps",
+    "base_url": "https://api.us-south.assistant.watson.cloud.ibm.com (Assistant, region-specific; kit default gateway.watsonplatform.net is retired)",
+    "env_vars": [
+      "ASSISTANT_URL",
+      "ASSISTANT_ID",
+      "ASSISTANT_IAM_APIKEY",
+      "CLOUDANT_ID",
+      "CLOUDANT_IAM_APIKEY",
+      "HERE_APIKEY",
+      "STARTER_KIT_SERVER_URL"
+    ],
+    "sdks": [
+      "node: ibm-watson@12.2.0 (kit pins ^5.4.0)",
+      "node: @ibm-cloud/cloudant@0.12.25 (kit uses deprecated @cloudant/cloudant ^4.2.4)"
+    ],
+    "sandbox": "none; Watson Assistant 'Preview link' for manual testing only",
+    "offline_mock": "easy",
+    "demo_effect": 1,
+    "integration_hours": "4-8",
+    "risk": "high",
+    "track_fit": [
+      "hacknc-community"
+    ],
+    "finance_fit": 1,
+    "tags": [
+      "starter-kit",
+      "legacy",
+      "chatbot",
+      "watson",
+      "react-native",
+      "covid",
+      "archived"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://github.com/Call-for-Code/Solution-Starter-Kit-Cooperation-2020",
+      "https://github.com/Call-for-Code/Solution-Starter-Kit-Communication-2020",
+      "https://github.com/Call-for-Code/Solution-Starter-Kit-Education-2020"
+    ],
+    "file": "catalog/ibm-call-for-code-starter-kits.md"
+  },
+  {
+    "id": "ibm-watson",
+    "name": "IBM Watson / watsonx.ai (Granite LLMs, NLU, Speech, Assistant)",
+    "provider": "IBM",
+    "category": "ml-nlp",
+    "source": "resources-doc",
+    "listed_as": "IBM Watson",
+    "status": "changed",
+    "cost_model": "free-tier",
+    "free_allowance": "watsonx.ai Runtime Lite: 300,000 tokens + 20 CUH/month; Lite plans for NLU, STT (500 min/mo), TTS, watsonx Assistant; IBM Cloud signup puts a card on file",
+    "card_required": true,
+    "signup_minutes": 30,
+    "auth": "IAM: POST https://iam.cloud.ibm.com/identity/token (grant_type=urn:ibm:params:oauth:grant-type:apikey) -> Authorization: Bearer <token>, ~60 min TTL",
+    "base_url": "https://us-south.ml.cloud.ibm.com/ml/v1",
+    "env_vars": [
+      "IBM_CLOUD_API_KEY",
+      "WATSONX_PROJECT_ID",
+      "WATSONX_URL",
+      "NLU_URL"
+    ],
+    "sdks": [
+      "python: ibm-watsonx-ai==1.8.0",
+      "python: ibm-watson==11.2.0",
+      "node: @ibm-cloud/watsonx-ai@1.7.16",
+      "node: ibm-watson@12.2.0"
+    ],
+    "sandbox": "No test mode. Lite plans are the free tier: real calls, monthly caps, no charges. Prompt Lab in the browser for trying prompts with no code",
+    "offline_mock": "easy",
+    "demo_effect": 2,
+    "integration_hours": "2-4",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general"
+    ],
+    "finance_fit": 3,
+    "tags": [
+      "llm",
+      "granite",
+      "guardrails",
+      "sentiment",
+      "nlp",
+      "speech",
+      "ibm"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://www.ibm.com/watson/developer-resources/",
+      "https://cloud.ibm.com/apidocs/watsonx-ai",
+      "https://ibm.github.io/watsonx-ai-python-sdk/",
+      "https://cloud.ibm.com/apidocs/natural-language-understanding",
+      "https://github.com/watson-developer-cloud/python-sdk"
+    ],
+    "file": "catalog/ibm-watson.md"
+  },
+  {
+    "id": "kaggle-datasets",
+    "name": "Kaggle Datasets + Kaggle API (kaggle CLI, kagglehub)",
+    "provider": "Kaggle (Google)",
+    "category": "dataset",
+    "source": "resources-doc",
+    "listed_as": "Open Datasets for Machine Learning Projects",
+    "status": "changed",
+    "cost_model": "free",
+    "free_allowance": "Free account; public dataset downloads free and unmetered (no published quota); license per dataset",
+    "card_required": false,
+    "signup_minutes": 5,
+    "auth": "Authorization: Bearer $KAGGLE_API_TOKEN (new tokens) or HTTP Basic $KAGGLE_USERNAME:$KAGGLE_KEY (legacy kaggle.json)",
+    "base_url": "https://www.kaggle.com/api/v1 (REST paths); SDK RPC at https://api.kaggle.com/v1/<service>/<method>",
+    "env_vars": [
+      "KAGGLE_API_TOKEN",
+      "KAGGLE_USERNAME",
+      "KAGGLE_KEY",
+      "KAGGLEHUB_CACHE"
+    ],
+    "sdks": [
+      "python: kaggle==2.2.4 (Python>=3.11)",
+      "python: kagglehub==1.0.2",
+      "python: kagglesdk==0.1.37"
+    ],
+    "sandbox": "Static files; Kaggle Notebooks give free hosted compute with datasets mounted at /kaggle/input (unverified for 2026 quotas)",
+    "offline_mock": "easy",
+    "demo_effect": 2,
+    "integration_hours": "0.5-2",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-beginner",
+      "sponsor-finance"
+    ],
+    "finance_fit": 4,
+    "tags": [
+      "dataset",
+      "fraud",
+      "transactions",
+      "sentiment",
+      "stocks",
+      "offline"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://www.kaggle.com/datasets",
+      "https://www.kaggle.com/settings/api",
+      "https://github.com/Kaggle/kaggle-api",
+      "https://github.com/Kaggle/kagglehub"
+    ],
+    "file": "catalog/kaggle-datasets.md"
+  },
+  {
+    "id": "matlab",
+    "name": "MATLAB Desktop + MATLAB Online (all toolboxes)",
+    "provider": "MathWorks",
+    "category": "compute-sim",
+    "source": "resources-doc",
+    "listed_as": "Mathworks",
+    "status": "active",
+    "cost_model": "campus-license",
+    "free_allowance": "Event classroom licenses (Desktop 5568100, Online 5568150) with all toolboxes; UNC students also have the campus-wide license via Onyen",
+    "card_required": false,
+    "signup_minutes": 15,
+    "auth": "MathWorks account sign-in + license association (no API key); Engine API / MCP server attach to a local install",
+    "base_url": "https://matlab.mathworks.com (MATLAB Online); local install for Python Engine / MCP",
+    "env_vars": [
+      "MW_MCP_SERVER_MATLAB_ROOT",
+      "LD_LIBRARY_PATH"
+    ],
+    "sdks": [
+      "python: matlabengine==26.2.5 (needs MATLAB R2026b; R2026a -> 26.1.*, R2025b -> 25.2.*)",
+      "mcp: github.com/matlab/matlab-mcp-server (release binary, MATLAB R2021a+)"
+    ],
+    "sandbox": "Everything runs locally or in MATLAB Online, so there are no external side effects; Econometrics simulate() and Simulink generate synthetic paths",
+    "offline_mock": "medium",
+    "demo_effect": 3,
+    "integration_hours": "2-4",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general",
+      "sponsor-finance"
+    ],
+    "finance_fit": 3,
+    "tags": [
+      "compute",
+      "simulation",
+      "quant",
+      "risk",
+      "backtesting",
+      "charts",
+      "mcp",
+      "campus-license"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://www.mathworks.com/licensecenter/classroom/5568100/",
+      "https://www.mathworks.com/licensecenter/classroom/5568150/",
+      "https://github.com/mathworks/awesome-matlab-hackathons",
+      "https://github.com/matlab/matlab-mcp-server",
+      "https://pypi.org/project/matlabengine/",
+      "https://help.rc.unc.edu/mathworks-portal/"
+    ],
+    "file": "catalog/matlab.md"
+  },
+  {
+    "id": "meta-graph-api",
+    "name": "Meta Graph API (WhatsApp Cloud API, Facebook Pages, Instagram)",
+    "provider": "Meta Platforms, Inc.",
+    "category": "social",
+    "source": "resources-doc",
+    "listed_as": "Facebook for Developers",
+    "status": "active",
+    "cost_model": "free",
+    "free_allowance": "Graph API calls free (rate-limited); WhatsApp Cloud API test number free, up to 5 verified recipients, no payment method needed",
+    "card_required": false,
+    "signup_minutes": 20,
+    "auth": "Authorization: Bearer <user | page | system-user token> (or ?access_token=)",
+    "base_url": "https://graph.facebook.com/v26.0",
+    "env_vars": [
+      "META_APP_ID",
+      "META_APP_SECRET",
+      "META_PAGE_ID",
+      "META_PAGE_TOKEN",
+      "WA_PHONE_NUMBER_ID",
+      "WA_TOKEN",
+      "WA_TO_NUMBER",
+      "WA_VERIFY_TOKEN",
+      "META_MODE"
+    ],
+    "sdks": [
+      "python: facebook-business==26.0.2 (Graph/Marketing API v26.0)",
+      "node: facebook-nodejs-business-sdk@24.0.1",
+      "python: requests==2.34.2 (simplest for WhatsApp/Pages)"
+    ],
+    "sandbox": "Development mode (app-role users get every permission without App Review), Graph API Explorer, WhatsApp test phone number (free, up to 5 recipients), test users via /{app-id}/accounts/test-users",
+    "offline_mock": "easy",
+    "demo_effect": 3,
+    "integration_hours": "2-4",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-community"
+    ],
+    "finance_fit": 2,
+    "tags": [
+      "social",
+      "whatsapp",
+      "facebook",
+      "instagram",
+      "messaging",
+      "alerts",
+      "approval",
+      "pages",
+      "insights",
+      "webhooks"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://developers.facebook.com/docs/graph-api",
+      "https://developers.facebook.com/documentation/business-messaging/whatsapp/get-started",
+      "https://developers.facebook.com/documentation/development/build-and-test/app-roles",
+      "https://developers.facebook.com/docs/graph-api/guides/explorer/",
+      "https://developers.facebook.com/docs/graph-api/reference/insights"
+    ],
+    "file": "catalog/meta-graph-api.md"
+  },
+  {
+    "id": "mlh-starter-kits",
+    "name": "MLH Hackathon Starter Kits & Guides",
+    "provider": "Major League Hacking (MLH)",
+    "category": "starter-kit",
+    "source": "resources-doc",
+    "listed_as": "Hackathon Starter Kits & Guides",
+    "status": "changed",
+    "cost_model": "free",
+    "free_allowance": "Guides/boilerplates free; sponsor perks per MLH pages: $50 MongoDB Atlas credits, 120-day student Snowflake trial (search-snippet); no Gemini credits from MLH",
+    "card_required": false,
+    "signup_minutes": 5,
+    "auth": "none for the guides; each sponsor kit needs that sponsor's own key",
+    "base_url": "https://hack.mlh.io/learn (MLH content now also served at https://www.mlh.com/resources/learn)",
+    "env_vars": [
+      "DATABASE_URL",
+      "GITHUB_CLIENT_ID",
+      "GITHUB_CLIENT_SECRET"
+    ],
+    "sdks": [
+      "git: github.com/MLH/mlh-hackathon-flask-starter (archived 2022)",
+      "git: github.com/MLH/mlh-hackathon-nodejs-starter (archived 2022)"
+    ],
+    "sandbox": "Kits run on localhost; sponsor sandboxes: Solana devnet + faucet, Snowflake trial (Cortex COMPLETE blocked on trials)",
+    "offline_mock": "easy",
+    "demo_effect": 1,
+    "integration_hours": "0.5-2",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-beginner",
+      "mlh-gemini",
+      "mlh-elevenlabs",
+      "mlh-solana",
+      "mlh-snowflake"
+    ],
+    "finance_fit": 1,
+    "tags": [
+      "starter-kit",
+      "boilerplate",
+      "mlh",
+      "onboarding",
+      "prize-rules"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://hack.mlh.io/learn",
+      "https://www.mlh.com/resources/learn",
+      "https://www.mlh.com/resources/software",
+      "https://github.com/MLH",
+      "https://github.com/MLH/mlh-hack-days-organizer-guide"
+    ],
+    "file": "catalog/mlh-starter-kits.md"
+  },
+  {
+    "id": "newsapi",
+    "name": "NewsAPI (newsapi.org)",
+    "provider": "NewsAPI.org",
+    "category": "news",
+    "source": "resources-doc",
+    "listed_as": "NewsAPI",
+    "status": "active",
+    "cost_model": "free-tier",
+    "free_allowance": "Developer plan: 100 req/day, articles delayed 24h, search back 1 month, localhost-only CORS, dev/testing only; next tier Business $449/mo",
+    "card_required": false,
+    "signup_minutes": 3,
+    "auth": "Header X-Api-Key: <key> (or ?apiKey=<key>)",
+    "base_url": "https://newsapi.org/v2",
+    "env_vars": [
+      "NEWSAPI_KEY",
+      "NEWS_MODE"
+    ],
+    "sdks": [
+      "python: newsapi-python==0.2.7 (unofficial, last release 2023)",
+      "node: newsapi@2.4.1 (unofficial)",
+      "python: requests==2.34.2 (simplest)"
+    ],
+    "sandbox": "none; the free Developer key is the sandbox (100 req/day). Cache every response to fixtures/",
+    "offline_mock": "easy",
+    "demo_effect": 2,
+    "integration_hours": "0.5-1",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-beginner",
+      "sponsor-finance"
+    ],
+    "finance_fit": 2,
+    "tags": [
+      "news",
+      "headlines",
+      "search",
+      "sentiment",
+      "rag",
+      "monitoring"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://newsapi.org/docs/get-started",
+      "https://newsapi.org/docs/endpoints/everything",
+      "https://newsapi.org/docs/endpoints/top-headlines",
+      "https://newsapi.org/docs/errors",
+      "https://newsapi.org/pricing"
+    ],
+    "file": "catalog/newsapi.md"
+  },
+  {
+    "id": "sec-edgar",
+    "name": "SEC EDGAR APIs (submissions, XBRL facts, full-text search)",
+    "provider": "U.S. Securities and Exchange Commission",
+    "category": "finance-data",
+    "source": "extra",
+    "listed_as": "",
+    "status": "active",
+    "cost_model": "free",
+    "free_allowance": "Free, no key; max 10 requests/second; descriptive User-Agent required",
+    "card_required": false,
+    "signup_minutes": 0,
+    "auth": "None; header User-Agent: <Org Name> <contact email>",
+    "base_url": "https://data.sec.gov",
+    "env_vars": [
+      "SEC_USER_AGENT"
+    ],
+    "sdks": [
+      "python: requests (no official SDK); edgartools is a popular community wrapper (version unverified)"
+    ],
+    "sandbox": "Public read-only data; nothing to simulate",
+    "offline_mock": "easy",
+    "demo_effect": 2,
+    "integration_hours": "1",
+    "risk": "low",
+    "track_fit": [
+      "hacknc-general",
+      "sponsor-finance"
+    ],
+    "finance_fit": 4,
+    "tags": [
+      "filings",
+      "10-k",
+      "10-q",
+      "8-k",
+      "fundamentals",
+      "xbrl",
+      "research-agent"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://www.sec.gov/edgar/sec-api-documentation",
+      "https://www.sec.gov/os/accessing-edgar-data"
+    ],
+    "file": "catalog/sec-edgar.md"
+  },
+  {
+    "id": "snowflake",
+    "name": "Snowflake (Cortex AI + SQL API)",
+    "provider": "Snowflake Inc.",
+    "category": "database",
+    "source": "tracks-page",
+    "listed_as": "[MLH] Best Use of Snowflake API",
+    "status": "active",
+    "cost_model": "free-trial",
+    "free_allowance": "30-day trial with $400 of usage, no billing info, ends at whichever runs out first (official FAQ snippet). MLH advertises a 120-day student trial via mlh.link/snowflake-signup (unverified for Oct 2026). No permanent free tier",
+    "card_required": false,
+    "signup_minutes": 15,
+    "auth": "REST (SQL API, Cortex): Authorization: Bearer <PAT> + X-Snowflake-Authorization-Token-Type: PROGRAMMATIC_ACCESS_TOKEN. Python: authenticator=PROGRAMMATIC_ACCESS_TOKEN, token=<PAT> (or key-pair JWT)",
+    "base_url": "https://<orgname>-<account_name>.snowflakecomputing.com/api/v2",
+    "env_vars": [
+      "SNOWFLAKE_ACCOUNT",
+      "SNOWFLAKE_USER",
+      "SNOWFLAKE_PAT",
+      "SNOWFLAKE_PASSWORD",
+      "SNOWFLAKE_WAREHOUSE",
+      "SNOWFLAKE_MODE"
+    ],
+    "sdks": [
+      "python: snowflake-connector-python==4.8.0",
+      "python: snowflake-snowpark-python==1.55.1",
+      "python: snowflake-core==1.13.2",
+      "python: snowflake-ml-python==2.4.0 (snowflake.cortex.* deprecated)",
+      "cli: snowflake-cli==3.29.0",
+      "python: streamlit==1.65.0"
+    ],
+    "sandbox": "Trial credits are a real account (no card); Snowpark local_testing session for DataFrame code; free Marketplace datasets",
+    "offline_mock": "medium",
+    "demo_effect": 4,
+    "integration_hours": "2-4",
+    "risk": "high",
+    "track_fit": [
+      "mlh-snowflake",
+      "hacknc-general",
+      "sponsor-finance"
+    ],
+    "finance_fit": 4,
+    "tags": [
+      "llm",
+      "cortex",
+      "sql",
+      "data-warehouse",
+      "rest-api",
+      "streamlit",
+      "marketplace",
+      "finance-data",
+      "agents",
+      "pat"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql",
+      "https://docs.snowflake.com/en/developer-guide/sql-api/submitting-requests",
+      "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-rest-api",
+      "https://docs.snowflake.com/en/user-guide/programmatic-access-tokens",
+      "https://www.mlh.com/partners/snowflake"
+    ],
+    "file": "catalog/snowflake.md"
+  },
+  {
+    "id": "solana",
+    "name": "Solana (devnet + SPL Memo program)",
+    "provider": "Solana Foundation / Anza",
+    "category": "blockchain",
+    "source": "tracks-page",
+    "listed_as": "[MLH] Best Use of Solana",
+    "status": "active",
+    "cost_model": "free",
+    "free_allowance": "devnet SOL is free from faucets; 1 SOL pays ~200k memo txs at 5000 lamports/signature (fee unverified)",
+    "card_required": false,
+    "signup_minutes": 10,
+    "auth": "None for RPC; transactions signed with a local ed25519 keypair (64-int JSON array file)",
+    "base_url": "https://api.devnet.solana.com",
+    "env_vars": [
+      "SOLANA_RPC",
+      "SOLANA_KEYPAIR_PATH"
+    ],
+    "sdks": [
+      "python: solana==0.41.0 + solders==0.29.0",
+      "node: @solana/web3.js@1.99.0",
+      "node: @solana/kit@8.4.0 + @solana-program/memo@0.15.0"
+    ],
+    "sandbox": "devnet is the sandbox: real public chain, free SOL, visible in explorer.solana.com?cluster=devnet",
+    "offline_mock": "easy",
+    "demo_effect": 4,
+    "integration_hours": "1-2 (anchor + verify page)",
+    "risk": "low",
+    "track_fit": [
+      "mlh-solana",
+      "hacknc-general"
+    ],
+    "finance_fit": 4,
+    "tags": [
+      "blockchain",
+      "audit",
+      "tamper-evident",
+      "hash-anchoring",
+      "memo",
+      "verification",
+      "payments"
+    ],
+    "verified": "sdk-source",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://github.com/solana-program/memo",
+      "https://raw.githubusercontent.com/michaelhly/solana-py/master/CHANGELOG.md",
+      "https://explorer.solana.com/?cluster=devnet"
+    ],
+    "file": "catalog/solana.md"
+  },
+  {
+    "id": "tiger-data",
+    "name": "Tiger Data (TimescaleDB on Tiger Cloud)",
+    "provider": "Tiger Data (formerly Timescale)",
+    "category": "database",
+    "source": "tracks-page",
+    "listed_as": "[MLH] Best Use of Tiger Data",
+    "status": "active",
+    "cost_model": "free-tier",
+    "free_allowance": "Free plan: 2 free services per account (shared CPU, us-east-1, ~750 MB each (unverified), read-only at the cap), no card. Optional $1000 / 30-day Performance or Scale trial, also no card",
+    "card_required": false,
+    "signup_minutes": 5,
+    "auth": "Postgres user/password over TLS (sslmode=require); default user tsdbadmin, db tsdb. Tiger CLI: browser OAuth (tiger auth login) or TIGER_PUBLIC_KEY / TIGER_SECRET_KEY",
+    "base_url": "postgres://tsdbadmin:<password>@<service-id>.<project-id>.tsdb.cloud.timescale.com:<port>/tsdb?sslmode=require",
+    "env_vars": [
+      "TIGER_DATABASE_URL"
+    ],
+    "sdks": [
+      "python: psycopg[binary]==3.3.6",
+      "python: asyncpg==0.32.0",
+      "python: sqlalchemy==2.1.4",
+      "python: pgvector==0.5.1",
+      "cli: tiger-cli (curl -fsSL https://cli.tigerdata.com | sh)",
+      "node: @tigerdata/pg-aiguide@0.6.1"
+    ],
+    "sandbox": "Free service is a real DB at $0; `tiger service fork` gives throwaway copies; local Docker timescale/timescaledb-ha:pg18 runs the same engine",
+    "offline_mock": "easy",
+    "demo_effect": 3,
+    "integration_hours": "1-3",
+    "risk": "low",
+    "track_fit": [
+      "mlh-tiger-data",
+      "hacknc-general",
+      "sponsor-finance"
+    ],
+    "finance_fit": 5,
+    "tags": [
+      "postgres",
+      "time-series",
+      "timescaledb",
+      "hypertable",
+      "continuous-aggregates",
+      "ohlcv",
+      "agent-events",
+      "mcp",
+      "pgvector",
+      "grafana"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://www.tigerdata.com/docs/",
+      "https://github.com/timescale/timescaledb",
+      "https://github.com/timescale/tiger-cli",
+      "https://www.tigerdata.com/pricing"
+    ],
+    "file": "catalog/tiger-data.md"
+  },
+  {
+    "id": "twilio",
+    "name": "Twilio Programmable Messaging + Voice",
+    "provider": "Twilio Inc.",
+    "category": "communication",
+    "source": "resources-doc",
+    "listed_as": "Twilio’s Communication APIs",
+    "status": "active",
+    "cost_model": "free-trial",
+    "free_allowance": "30-day trial, ~$15 credit, verified recipients only (max 5), sign-up country only; US SMS blocked until toll-free verification (days); test credentials free",
+    "card_required": false,
+    "signup_minutes": 15,
+    "auth": "HTTP Basic AccountSid:AuthToken (or API Key SID:Secret)",
+    "base_url": "https://api.twilio.com/2010-04-01",
+    "env_vars": [
+      "TWILIO_ACCOUNT_SID",
+      "TWILIO_AUTH_TOKEN",
+      "TWILIO_FROM_NUMBER",
+      "TWILIO_TO_NUMBER",
+      "TWILIO_TEST_ACCOUNT_SID",
+      "TWILIO_TEST_AUTH_TOKEN",
+      "PUBLIC_BASE_URL",
+      "TWILIO_MODE"
+    ],
+    "sdks": [
+      "python: twilio==9.11.2",
+      "node: twilio@6.1.2"
+    ],
+    "sandbox": "Test credentials + magic numbers (From +15005550006) return real-shaped JSON, nothing sent or billed; Console Virtual Phone shows trial SMS on screen",
+    "offline_mock": "easy",
+    "demo_effect": 4,
+    "integration_hours": "1-2 (outbound SMS/call) / 2-4 (keypad approval webhook)",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-community",
+      "mlh-elevenlabs",
+      "sponsor-finance"
+    ],
+    "finance_fit": 3,
+    "tags": [
+      "sms",
+      "voice",
+      "phone-call",
+      "alerts",
+      "approval",
+      "human-in-the-loop",
+      "ivr",
+      "2fa",
+      "webhooks"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://www.twilio.com/docs",
+      "https://www.twilio.com/docs/iam/test-credentials",
+      "https://www.twilio.com/docs/usage/trials",
+      "https://www.twilio.com/docs/messaging/guides/guide-to-using-the-twilio-virtual-phone",
+      "https://www.twilio.com/docs/voice/twiml/gather"
+    ],
+    "file": "catalog/twilio.md"
+  },
+  {
+    "id": "x-api",
+    "name": "X API v2 (formerly Twitter API)",
+    "provider": "X Corp.",
+    "category": "social",
+    "source": "resources-doc",
+    "listed_as": "Twitter’s APIs",
+    "status": "changed",
+    "cost_model": "paid-only",
+    "free_allowance": "No free tier for new developers (pay-per-use since Feb 2026). ~$0.005/post read, $0.010/user read, $0.015/post created, $0.20/post with a URL; $20 credit for saving a first card (expires in 3 months)",
+    "card_required": true,
+    "signup_minutes": 20,
+    "auth": "Reads: Authorization: Bearer <app bearer token>. Writes: OAuth 1.0a user context or OAuth 2.0 PKCE user token",
+    "base_url": "https://api.x.com/2",
+    "env_vars": [
+      "X_BEARER_TOKEN",
+      "X_API_KEY",
+      "X_API_SECRET",
+      "X_ACCESS_TOKEN",
+      "X_ACCESS_TOKEN_SECRET",
+      "X_MODE"
+    ],
+    "sdks": [
+      "python: xdk==0.10.6 (official, alpha)",
+      "python: tweepy==4.17.0",
+      "node: @xdevplatform/xdk@0.6.6",
+      "node: twitter-api-v2@1.29.1"
+    ],
+    "sandbox": "none; no test mode. Set a small spend cap in console.x.com; failed requests are not billed",
+    "offline_mock": "easy",
+    "demo_effect": 3,
+    "integration_hours": "1-3",
+    "risk": "high",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-ig-turing"
+    ],
+    "finance_fit": 2,
+    "tags": [
+      "social",
+      "posts",
+      "search",
+      "sentiment",
+      "cashtags",
+      "bot",
+      "publishing",
+      "cost-tracking"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://docs.x.com/x-api/introduction",
+      "https://docs.x.com/x-api/getting-started/pricing",
+      "https://docs.x.com/x-api/getting-started/free-credits",
+      "https://docs.x.com/x-api/fundamentals/post-cap",
+      "https://github.com/xdevplatform/xdk-python"
+    ],
+    "file": "catalog/x-api.md"
+  },
+  {
+    "id": "yelp",
+    "name": "Yelp Places API (formerly Fusion) + Yelp AI API",
+    "provider": "Yelp Inc.",
+    "category": "local-business",
+    "source": "resources-doc",
+    "listed_as": "Yelp",
+    "status": "changed",
+    "cost_model": "free-trial",
+    "free_allowance": "30-day trial, up to 5,000 calls total, evaluation only (no public launch); then Base $229/mo, Enhanced $299, Premium $643",
+    "card_required": "unknown",
+    "signup_minutes": 15,
+    "auth": "Header Authorization: Bearer <API key>",
+    "base_url": "https://api.yelp.com/v3",
+    "env_vars": [
+      "YELP_API_KEY",
+      "YELP_MODE"
+    ],
+    "sdks": [
+      "python: requests==2.34.2 (no official Python SDK)",
+      "python: yelpapi==2.6.0 (unofficial)",
+      "mcp: github.com/Yelp/yelp-mcp 0.1.0 (official example MCP server for the AI API)"
+    ],
+    "sandbox": "none; the 30-day / 5,000-call trial key is the only free path (email fusion@yelp.com to extend)",
+    "offline_mock": "easy",
+    "demo_effect": 3,
+    "integration_hours": "1-2",
+    "risk": "medium",
+    "track_fit": [
+      "hacknc-general",
+      "hacknc-community",
+      "hacknc-ig-turing"
+    ],
+    "finance_fit": 2,
+    "tags": [
+      "local-business",
+      "places",
+      "reviews",
+      "restaurants",
+      "maps",
+      "ai-agent",
+      "mcp",
+      "merchant-enrichment"
+    ],
+    "verified": "search-snippet",
+    "last_checked": "2026-10-10",
+    "docs": [
+      "https://docs.developer.yelp.com/docs/places-intro",
+      "https://docs.developer.yelp.com/docs/places-faq",
+      "https://business.yelp.com/data/resources/pricing/",
+      "https://docs.developer.yelp.com/reference/v2_ai_chat",
+      "https://github.com/Yelp/yelp-mcp"
+    ],
+    "file": "catalog/yelp.md"
+  }
+]

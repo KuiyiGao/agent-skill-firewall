@@ -42,6 +42,20 @@ rewrites), and the research sandbox could not open most vendor docs directly.
    new SDK version), edit the entry, bump `last_checked`, then run
    `python scripts/catalog.py validate && python scripts/catalog.py index`.
 
+## Quick picks (details and reasons in `references/selection-guide.md`)
+
+- **Use first:** `claude-api` (agent brain), `alpaca-paper-trading` + `alpaca-news`
+  (orders and finance news, one free key), `faker` (safe PII), `elevenlabs` (voice alerts
+  and voice approval), `solana` (tamper-evident audit on devnet), `arcgis-location-platform`
+  (no-card maps), `tiger-data` (time-series events), `sec-edgar` (filings).
+- **Use with care:** `twilio` (voice calls work on trial, SMS mostly does not),
+  `google-maps-platform` (needs a card), `gemini-api` (give it a real decision to win
+  `mlh-gemini`), `snowflake` (trial may block Cortex `COMPLETE`; test first),
+  `kaggle-datasets` (download before venue Wi-Fi), `meta-graph-api` (WhatsApp test number).
+- **Skip unless a sponsor changes the picture:** `x-api`, `yelp`, `here-platform`,
+  `dialogflow`, `ibm-watson` as a main model, `ibm-call-for-code-starter-kits`,
+  `capital-one-nessie`.
+
 ## Unified fields
 
 | Field | Meaning |
