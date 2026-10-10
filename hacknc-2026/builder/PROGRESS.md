@@ -22,6 +22,11 @@ Times are Eastern. Newest entries at the top of the log.
 
 ## Log
 
+### 2026-10-10 ~12:30
+- `builder/CLAUDE.md`: new section saying everything in `builder/` may be changed while the
+  tooling is under construction (with the checks to run and what stays fixed).
+- Root `AGENTS.md` points non-Claude agents (Codex, Cursor, Gemini CLI) to `builder/CLAUDE.md`.
+
 ### 2026-10-10 ~12:20
 - Skill drop-in simplified: `.claude/skills` is now one link to `builder/skills/`, so any
   skill folder dropped there loads at startup (verified with a fresh `claude -p` session

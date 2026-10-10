@@ -18,6 +18,25 @@ Paths below are relative to `hacknc-2026/`.
   `python3 builder/skills.py`; `.claude/skills` links to that folder, so every `ok` skill
   loads at startup. Publish `release/` with `builder/release.sh`.
 
+## builder/ is under construction: you may change anything in it
+
+The team is still building the builder tooling, so nothing in `builder/` is frozen. That
+includes the skills in `builder/skills/`, `skills.py`, `release.sh`, the API catalog and its
+schema, `.env.example`, the READMEs, the PROGRESS/DECISIONS formats, the conventions in
+this file, and this file itself. If something there is wrong, missing or in your way,
+fix it, extend it or restructure it; you do not need to ask first or keep the current
+layout for its own sake.
+
+When you change `builder/`:
+- keep it working: run `python3 builder/skills.py` (and the catalog's `validate` if you
+  touched the catalog) before committing;
+- update the docs that describe what you changed in the same commit;
+- add a line to `builder/PROGRESS.md`, and a `builder/DECISIONS.md` entry if you changed a
+  convention, so teammates and other agents can follow.
+
+What stays fixed, because it is not builder tooling: the Devpost rules below, secrets never
+committed (keys only in `builder/.env`), and `release/` never depending on `builder/`.
+
 ## Hard constraints (from the Devpost rules)
 
 - Submission deadline: **Sunday Oct 11, 10:00 AM Eastern**. Demo video max **2 minutes**.
